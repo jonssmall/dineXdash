@@ -1,4 +1,10 @@
 DineXdash::Application.routes.draw do
+  resources :check_items
+
+  resources :checks
+
+  resources :menu_items
+
   resources :restaurants
 
   root :to => 'users#index'

@@ -1,0 +1,33 @@
+<h1>Listing check_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Restaurant</th>
+      <th>Item name</th>
+      <th>Item desc</th>
+      <th>Price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @check_items.each do |check_item| %>
+      <tr>
+        <td><%= check_item.restaurant_id %></td>
+        <td><%= check_item.item_name %></td>
+        <td><%= check_item.item_desc %></td>
+        <td><%= check_item.price %></td>
+        <td><%= link_to 'Show', check_item %></td>
+        <td><%= link_to 'Edit', edit_check_item_path(check_item) %></td>
+        <td><%= link_to 'Destroy', check_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check item', new_check_item_path %>

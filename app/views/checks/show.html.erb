@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @check.user_id %>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @check.restaurant_id %>
+</p>
+
+<p>
+  <strong>Paid at:</strong>
+  <%= @check.paid_at %>
+</p>
+
+<%= link_to 'Edit', edit_check_path(@check) %> |
+<%= link_to 'Back', checks_path %>
