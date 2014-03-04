@@ -1,4 +1,6 @@
 DineXdash::Application.routes.draw do
+  resources :restaurants
+
   root :to => 'users#index'
 resources :user_sessions
 resources :users
