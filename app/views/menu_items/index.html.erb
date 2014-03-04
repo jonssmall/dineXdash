@@ -20,9 +20,9 @@
         <td><%= menu_item.item_name %></td>
         <td><%= menu_item.item_desc %></td>
         <td><%= menu_item.price %></td>
-        <td><%= link_to 'Show', menu_item %></td>
-        <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
-        <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', restaurant_menu_item_path(@restaurant, menu_item) %></td>
+        <td><%= link_to 'Edit', edit_restaurant_menu_item_path(@restaurant, menu_item) %></td>
+        <td><%= link_to 'Destroy', [@restaurant, menu_item], confirm: 'Are you sure?', method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Menu item', new_menu_item_path %>
+<%= link_to 'New Menu item', new_restaurant_menu_item_path(@restaurant) %>
