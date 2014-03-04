@@ -1,13 +1,14 @@
 DineXdash::Application.routes.draw do
-  resources :check_items
 
-  resources :checks
+  resources :checks do
+      resources :check_items
+  end
 
-  resources :menu_items
+  resources :restaurants do
+    resources :menu_items
+  end
 
-  resources :restaurants
-
-  root :to => 'users#index'
+root :to => 'users#index'
 resources :user_sessions
 resources :users
 
