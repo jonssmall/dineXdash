@@ -24,8 +24,8 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+   
+    <%= hidden_field_tag "user_id",:value => current_user.id %>
   </div>
   <div class="actions">
     <%= f.submit %>

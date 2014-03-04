@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
 	has_many :menu_items
 
-	validates :name, :address, :description, :user_id, :presence => true
+	validates :name, :address, :description, :presence => true
 end

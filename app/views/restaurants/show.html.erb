@@ -14,9 +14,10 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @restaurant.user_id %>
+  <strong></strong>
+  
 </p>
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+<%= link_to 'Back', restaurants_path %> |
+<%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
