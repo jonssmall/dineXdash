@@ -21,8 +21,8 @@
         <td><%= check_item.item_desc %></td>
         <td><%= check_item.price %></td>
         <td><%= link_to 'Show', check_check_item_path(@check, check_item) %></td>
-+       <td><%= link_to 'Edit', edit_check_check_item_path(@check, check_item) %></td>
-+    <td><%= link_to 'Destroy', [@check, check_item], confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Edit', edit_check_check_item_path(@check, check_item) %></td>
+   <td><%= link_to 'Destroy', [@check, check_item], confirm: 'Are you sure?', method: :delete %></td>
       </tr>
     <% end %>
   </tbody>

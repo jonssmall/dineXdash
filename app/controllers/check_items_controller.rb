@@ -10,7 +10,7 @@ class CheckItemsController < ApplicationController
   end
 
   def new
-    @check_item = @check.check_item.new
+    @check_item = @check.check_items.new
   end
 
   def edit
@@ -22,7 +22,7 @@ class CheckItemsController < ApplicationController
 
     respond_to do |format|
       if @check_item.save
-        format.html { redirect_to @check_item, notice: 'Check item was successfully created.' }
+        format.html { redirect_to check_check_items_path, notice: 'Check item was successfully created.' }
       else
         format.html { render action: 'new' }   
       end
