@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   #need to do before_action :require_login, except:
+  before_action :require_login, except: [:index, :show]
   # before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 #render "menu_items/show"
   def index
