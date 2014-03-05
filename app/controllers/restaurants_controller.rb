@@ -21,6 +21,7 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user_id = current_user.id
 
     respond_to do |format|
       if @restaurant.save
