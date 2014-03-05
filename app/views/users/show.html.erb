@@ -8,11 +8,12 @@
   
 </p>
 
-
-<p>
-	<strong>Currently checked in to:</strong>
-</p>
-	<%= current_user.checks.first.restaurant.name %>
+	<% if current_user.checks.any? %>
+		<strong>Currently checked in to:</strong>
+		<%= current_user.checks.first.restaurant.name %>
+	<% else %>
+		<p>Check out a restaurant profile to start a new check!</p>
+	<% end %>
 <br>
 <br>
 

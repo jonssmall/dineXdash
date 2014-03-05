@@ -21,13 +21,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        redirect_to(:users, notice: 'User was successfully created')
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to(:root, notice: 'User was successfully created')
+      auto_login(@user)
+    else
+      render action: 'new'
     end
   end
 
