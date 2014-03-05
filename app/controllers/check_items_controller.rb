@@ -19,7 +19,6 @@ class CheckItemsController < ApplicationController
 
   def create
     @check_item = @check.check_items.new(check_item_params)
-
     respond_to do |format|
       if @check_item.save
         format.html { redirect_to check_check_items_path, notice: 'Check item was successfully created.' }
@@ -29,8 +28,6 @@ class CheckItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /check_items/1
-  # PATCH/PUT /check_items/1.json
   def update
     @check_item=@check.check_items.find(params[:id])
     respond_to do |format|
@@ -42,8 +39,6 @@ class CheckItemsController < ApplicationController
     end
   end
 
-  # DELETE /check_items/1
-  # DELETE /check_items/1.json
   def destroy
     @check_item.destroy
     respond_to do |format|

@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'sorcery'
 
+#Adding CanCanCan
+gem 'cancancan', '~> 1.7'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
