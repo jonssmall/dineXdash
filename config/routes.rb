@@ -8,7 +8,7 @@ DineXdash::Application.routes.draw do
     resources :menu_items
   end
 
-root :to => 'users#index'
+root :to => 'restaurants#index'
 resources :user_sessions
 resources :users
 

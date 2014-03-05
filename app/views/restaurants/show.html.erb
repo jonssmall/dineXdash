@@ -21,3 +21,17 @@
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %> |
 <%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
+
+<br>
+<br>
+<p> Menu items for this restaurant: </p>
+<% @restaurant.menu_items.each do |i| %>
+<%= i.item_name %>
+<%= i.item_desc %>
+<%= i.price %>
+
+<% end %>
+<br>
+<br> 
+
+

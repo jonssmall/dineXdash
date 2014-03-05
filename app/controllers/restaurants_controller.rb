@@ -1,12 +1,13 @@
 class RestaurantsController < ApplicationController
   #need to do before_action :require_login, except:
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
-
+  # before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+#render "menu_items/show"
   def index
     @restaurants = Restaurant.all
   end
 
   def show
+    @restaurant=Restaurant.find(params[:id])
   end
 
   def new
@@ -14,6 +15,7 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
+    @restaurant= Restaurant.find(params[:id])
   end
 
   def create
@@ -29,6 +31,7 @@ class RestaurantsController < ApplicationController
   end
 
   def update
+    @restaurant=Restaurant.find(params[:id])
     respond_to do |format|
       if @restaurant.update(restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
@@ -47,9 +50,9 @@ class RestaurantsController < ApplicationController
 
   private
   #Should we have a set_restaurant_owner here?
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
-    end
+    # def set_restaurant
+    #   @restaurant = Restaurant.find(params[:id])
+    # end
 
     def restaurant_params
       params.require(:restaurant).permit(:name, :address, :description, :user_id)
