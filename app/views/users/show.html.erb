@@ -8,10 +8,13 @@
   
 </p>
 
-<p>
-  <strong></strong>
-  
-</p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<p>
+	<strong>Currently checked in to:</strong>
+</p>
+	<%= current_user.checks.first.restaurant.name %>
+<br>
+<br>
+
+<%= link_to 'Edit User', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
