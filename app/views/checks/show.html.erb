@@ -12,16 +12,29 @@
   <strong>Paid at:</strong>
   <%= @check.paid_at %>
 </p>
-<h3>WILL AUTHORIZE: USER Perspective to PAY BILL<h3>
+<h3>WILL AUTHORIZE: USER Perspective to PAY BILL</h3>
 
 <% subtotal = 0 %>
 <% @check.check_items.each do |item| %>
   <% if item.id.present? %>
-	 <p><%= item.item_name %> Quantity: <%= item.quantity %> Price per Unit: $<%= item.price %>  <strong>Total for this item: $<%= item.quantity * item.price %></strong></p>
+	 <p><%= item.item_name %> Quantity: <%= item.quantity %> Price per Unit: <%= number_to_currency(item.price) %>  <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong></p>
    <% subtotal += (item.price * item.quantity) %>
   <% end %>
 <% end %>
-<%= subtotal %>
+
+<h4>Subtotal: <%= number_to_currency(subtotal) %></h4>
+
+<% tip_amount = (subtotal * (@check.diner.tip / 100.0)).round(2) %>
+<h4>Tip (at <%= @check.diner.tip %>%): <%= number_to_currency(tip_amount) %></h4>
+
+<% tax_amount = (subtotal * 0.14).round(2) %>
+<h4>HST (14%): <%= number_to_currency(tax_amount) %></h4>
+
+<h2>Total: <%= number_to_currency(subtotal + tip_amount + tax_amount) %></h2>
+
+<br>
+<br>
+<br>
 
 <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
 <%= form_for [@check, @check_item] do |f| %>

@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306181325) do
+ActiveRecord::Schema.define(version: 20140306222638) do
 
   create_table "check_items", force: true do |t|
     t.string   "item_name"
     t.text     "item_desc"
-    t.integer  "price"
+    t.decimal  "price",      precision: 2, scale: 10
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "check_id"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20140306181325) do
     t.integer  "restaurant_id"
     t.string   "item_name"
     t.text     "item_desc"
-    t.integer  "price"
+    t.decimal  "price",         precision: 2, scale: 10
     t.datetime "created_at"
     t.datetime "updated_at"
   end
