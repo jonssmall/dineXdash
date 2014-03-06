@@ -21,7 +21,7 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.user_id = current_user.id
+    @restaurant.owner_id = current_user.id
 
     respond_to do |format|
       if @restaurant.save
@@ -57,6 +57,6 @@ class RestaurantsController < ApplicationController
     # end
 
     def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :description, :user_id)
+      params.require(:restaurant).permit(:name, :address, :description, :owner_id)
     end
 end

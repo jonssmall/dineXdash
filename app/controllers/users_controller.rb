@@ -59,4 +59,11 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
     end
+
+    def ensure_single_check
+      set_user
+      unless @user.checked_in_restaurants.count == 0
+        return false
+      end
+    end
 end

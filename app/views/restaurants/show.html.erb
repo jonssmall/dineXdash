@@ -13,10 +13,11 @@
   <%= @restaurant.description %>
 </p>
 
-<p>
-  <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), method: :post %>
-  
-</p>
+<% if logged_in? && current_user.checked_in_restaurants.count == 0 %>
+	<p>
+	  <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), method: :post %>
+	</p>
+<% end %>
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %> |

@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Address</th>
       <th>Description</th>
-      <th>User ID</th>
+      <th>Owner ID</th>
     </tr>
   </thead>
 
@@ -16,7 +16,7 @@
         <td><%= restaurant.name %></td>
         <td><%= restaurant.address %></td>
         <td><%= restaurant.description %></td>
-        <td><%= restaurant.user_id %></td>
+        <td><%= restaurant.owner_id %></td>
         <td><%= link_to 'Show', restaurant %></td>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
         <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>

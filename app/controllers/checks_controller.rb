@@ -1,6 +1,6 @@
 class ChecksController < ApplicationController
   before_action :set_check, only: [:show, :edit, :update, :destroy]
-
+  # before_action :ensure_single_check, only: [:new, :create]
   def index
     @checks = Check.all
   end
@@ -23,7 +23,7 @@ class ChecksController < ApplicationController
 
     respond_to do |format|
       if @check.save
-        format.html { redirect_to current_user, notice: 'Check was successfully created.' }
+        format.html { redirect_to @check, notice: 'Check was successfully created.' }
       else
         format.html { render action: 'new' }
       end
@@ -56,4 +56,5 @@ class ChecksController < ApplicationController
     def check_params
       params.require(:check).permit(:user_id, :restaurant_id, :paid_at)
     end
+
 end
