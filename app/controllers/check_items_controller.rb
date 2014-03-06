@@ -2,26 +2,33 @@ class CheckItemsController < ApplicationController
   # before_action :set_check_item, only: [:show, :edit, :update, :destroy]
   before_filter :load_check
 
-  def index
-    @check_items = @check.check_items.all
-  end
+  # def index
+  #   @check_items = @check.check_items.all
+  # end
 
-  def show
-  end
+  # def show
+  # end
 
-  def new
-    @check_item = @check.check_items.new
-  end
+  # def new
+  #   @check_item = @check.check_items.new
+  # end
 
-  def edit
-    @check_item = @check.check_items.find(params[:id])
-  end
+  # def edit
+  #   @check_item = @check.check_items.find(params[:id])
+  # end
 
   def create
-    @check_item = @check.check_items.new(check_item_params)
+    @menu_item = MenuItem.find(params[:menu_item][:id])
+    @check_item = @check.check_items.new
+    @check_item.quantity = params[:quantity].to_i
+    @check_item.price = @menu_item.price
+    @check_item.item_name = @menu_item.item_name
+    @check_item.item_desc = @menu_item.item_desc
+    @check_item.check_id = @check.id
+
     respond_to do |format|
       if @check_item.save
-        format.html { redirect_to check_check_items_path, notice: 'Check item was successfully created.' }
+        format.html { redirect_to check_path(@check), notice: 'Check item was successfully created.' }
       else
         format.html { render action: 'new' }   
       end
@@ -54,7 +61,7 @@ class CheckItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def check_item_params
-      params.require(:check_item).permit(:restaurant_id, :item_name, :item_desc, :price)
+      params.require(:check_item).permit(:quantity, :item_name, :item_desc, :price)
     end
 
     def load_check

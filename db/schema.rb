@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304205439) do
+ActiveRecord::Schema.define(version: 20140305232117) do
 
   create_table "check_items", force: true do |t|
-    t.integer  "restaurant_id"
     t.string   "item_name"
     t.text     "item_desc"
     t.integer  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "check_id"
+    t.integer  "quantity"
   end
 
   create_table "checks", force: true do |t|

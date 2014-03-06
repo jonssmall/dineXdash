@@ -1,6 +1,6 @@
 DineXdash::Application.routes.draw do
 
-  resources :checks do
+  resources :checks, except: :new do
       resources :check_items
   end
 

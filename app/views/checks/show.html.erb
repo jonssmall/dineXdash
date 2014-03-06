@@ -13,5 +13,17 @@
   <%= @check.paid_at %>
 </p>
 
+<% @check.check_items.each do |item| %>
+	<p><%= item.item_name %> Quantity: <%= item.quantity %></p>
+<% end %>
+
+<%= form_for [@check, CheckItem.new] do |f| %>
+	<%= collection_select :menu_item, :id, MenuItem.all, :id, :item_name, prompt: false %>
+	<%= f.number_field :quantity %>
+	<%= f.submit "Add Item" %>
+<% end %>
+
 <%= link_to 'Edit', edit_check_path(@check) %> |
 <%= link_to 'Back', checks_path %>
+
+
