@@ -14,11 +14,14 @@
 </p>
 <h3>WILL AUTHORIZE: USER Perspective to PAY BILL<h3>
 
+<% subtotal = 0 %>
 <% @check.check_items.each do |item| %>
   <% if item.id.present? %>
 	 <p><%= item.item_name %> Quantity: <%= item.quantity %> Price per Unit: $<%= item.price %>  <strong>Total for this item: $<%= item.quantity * item.price %></strong></p>
+   <% subtotal += (item.price * item.quantity) %>
   <% end %>
 <% end %>
+<%= subtotal %>
 
 <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
 <%= form_for [@check, @check_item] do |f| %>
