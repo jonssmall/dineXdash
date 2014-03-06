@@ -21,9 +21,12 @@ class ChecksController < ApplicationController
     @check = Check.new( :restaurant_id => params[:restaurant_id] )
     @check.user = current_user
 
+
     respond_to do |format|
       if @check.save
-        format.html { redirect_to @check, notice: 'Check was successfully created.' }
+        @check.user.checked_in = true
+        @check.user.save!
+        format.html { redirect_to @check, notice: "Check was successfully created." }
       else
         format.html { render action: 'new' }
       end

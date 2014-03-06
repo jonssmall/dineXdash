@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :require_login, only: [:index, :new, :create]
 
-
   def index
     @users = User.all
   end
@@ -60,10 +59,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
-    def ensure_single_check
-      set_user
-      unless @user.checked_in_restaurants.count == 0
-        return false
-      end
-    end
 end

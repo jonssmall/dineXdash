@@ -9,12 +9,12 @@ class ApplicationController < ActionController::Base
   		redirect_to login_path, alert: "Please login first"
 	end
 
-  def ensure_single_check
-    unless current_user.checked_in_restaurants.count < 1
-      flash[:alert] = "You can't be in two places at once... yet."
-      redirect_to root_path
-    end
-  end
+  # def ensure_single_check
+  #   unless current_user.checked_in_restaurants.count < 1
+  #     flash[:alert] = "You can't be in two places at once... yet."
+  #     redirect_to root_path
+  #   end
+  # end
   
 end
 

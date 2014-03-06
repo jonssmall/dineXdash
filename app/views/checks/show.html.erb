@@ -18,7 +18,7 @@
 <% end %>
 
 <%= form_for [@check, CheckItem.new] do |f| %>
-	<%= collection_select :menu_item, :id, MenuItem.all, :id, :item_name, prompt: false %>
+	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
 	<%= f.number_field :quantity %>
 	<%= f.submit "Add Item" %>
 <% end %>
