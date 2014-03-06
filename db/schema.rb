@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305232117) do
+ActiveRecord::Schema.define(version: 20140306010221) do
 
   create_table "check_items", force: true do |t|
     t.string   "item_name"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20140305232117) do
     t.string   "name"
     t.string   "address"
     t.text     "description"
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
