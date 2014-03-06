@@ -1,11 +1,13 @@
 class ChecksController < ApplicationController
   before_action :set_check, only: [:show, :edit, :update, :destroy]
+  before_action :one_pending_check, only: [:create]
   # before_action :ensure_single_check, only: [:new, :create]
   def index
     @checks = Check.all
   end
 
   def show
+    @check_item = @check.check_items.new
   end
 
   def new
@@ -19,13 +21,13 @@ class ChecksController < ApplicationController
   def create
 
     @check = Check.new( :restaurant_id => params[:restaurant_id] )
-    @check.user = current_user
+    @check.diner = current_user
 
 
     respond_to do |format|
       if @check.save
-        @check.user.checked_in = true
-        @check.user.save!
+        @check.diner.checked_in = true
+        @check.diner.save!
         format.html { redirect_to @check, notice: "Check was successfully created." }
       else
         format.html { render action: 'new' }
@@ -58,6 +60,13 @@ class ChecksController < ApplicationController
 
     def check_params
       params.require(:check).permit(:user_id, :restaurant_id, :paid_at)
+    end
+
+    def one_pending_check
+      if current_user.checks.pending.any?
+        flash[:alert] = "You can't be in two places at once... yet."
+        redirect_to(:back)
+      end
     end
 
 end

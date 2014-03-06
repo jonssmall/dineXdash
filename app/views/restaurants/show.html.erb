@@ -36,8 +36,8 @@
 <%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
 <br>
 <h4>List of Diners checked into this restaurant:</h4>
-<% @restaurant.diners.each do |diner| %>
-	<%= link_to "#{diner.email}", check_path(diner.checks.last) %>
+<% @restaurant.checks.pending.each do |check| %>
+	<%= link_to "#{check.diner.email}", check_path(check) %>
 <% end %>
 
 

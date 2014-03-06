@@ -20,7 +20,7 @@ class CheckItemsController < ApplicationController
   def create
     @menu_item = MenuItem.find(params[:menu_item][:id])
     @check_item = @check.check_items.new
-    @check_item.quantity = params[:quantity].to_i
+    @check_item.quantity = params[:check_item][:quantity].to_i
     @check_item.price = @menu_item.price
     @check_item.item_name = @menu_item.item_name
     @check_item.item_desc = @menu_item.item_desc
@@ -30,7 +30,7 @@ class CheckItemsController < ApplicationController
       if @check_item.save
         format.html { redirect_to check_path(@check), notice: 'Check item was successfully created.' }
       else
-        format.html { render action: 'new' }   
+        format.html { render 'checks/show' }   
       end
     end
   end
@@ -41,7 +41,7 @@ class CheckItemsController < ApplicationController
       if @check_item.update(check_item_params)
         format.html { redirect_to [@check, @check_item], notice: 'Check item was successfully updated.' }
       else
-        format.html { render action: 'edit' }
+        format.html { render 'edit' }
       end
     end
   end
