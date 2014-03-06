@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true, on: :create
   validates :password_confirmation, presence: true, on: :create
 
+	validates :tip, numericality: { only_integer: true, :greater_than_or_equal_to => 0 }
   validates :email, uniqueness: true
+  validates :email, presence: true
 end
 
 

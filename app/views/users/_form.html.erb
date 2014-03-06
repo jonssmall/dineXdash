@@ -17,12 +17,17 @@
   </div>
   <div class="field">
     <%= f.label :password %><br />
-   <%= f.password_field :password %>
+    <%= f.password_field :password %>
   </div>
   <div class="field">
-     <%= f.label :password_confirmation %><br />
-   <%= f.password_field :password_confirmation %>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
   </div>
+  <div class="field">
+    <%= f.label :tip_percentage %><br>
+    <%= f.number_field :tip%>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -19,10 +19,6 @@
 	</p>
 <% end %>
 
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %> |
-<%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
-
 <br>
 <br>
 <p> Menu items for this restaurant: </p>
@@ -34,5 +30,19 @@
 <% end %>
 <br>
 <br> 
+<h2>WILL AUTHORIZE: OWNER-ONLY SECTION</h2>
+<%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back to Restaurants Index', restaurants_path %> |
+<%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
+<br>
+<h4>List of Diners checked into this restaurant:</h4>
+<% @restaurant.diners.each do |diner| %>
+	<%= link_to "#{diner.email}", check_path(diner.checks.last) %>
+<% end %>
+
+
+<br>
+<br>
+<br>
 
 
