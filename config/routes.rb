@@ -2,6 +2,7 @@ DineXdash::Application.routes.draw do
 
   resources :checks, except: :new do
       resources :check_items
+      # get :pay
   end
 
   resources :restaurants do

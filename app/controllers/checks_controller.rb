@@ -6,6 +6,10 @@ class ChecksController < ApplicationController
     @checks = Check.all
   end
 
+  # def pay
+  #   redirect_to @check, notice: "You pushed a button."
+  # end
+
   def show
     @check_item = @check.check_items.new
   end
