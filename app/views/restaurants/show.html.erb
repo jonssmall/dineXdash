@@ -13,10 +13,17 @@
   <%= @restaurant.description %>
 </p>
 
-<% if logged_in? && !(current_user.checked_in) %>
-	<p>
-	  <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), method: :post %>
-	</p>
+<h3>Checkin:</h3>
+<% if logged_in? %>
+  <% if !(current_user.checked_in) %>
+  	<p>
+  	  <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), method: :post %>
+  	</p>
+  <% else %>
+    <p>You're already checked into a restaurant!</p>
+  <% end %>
+<% else %>
+  <p>Please login to check into this restaurant.</p>
 <% end %>
 
 <br>
@@ -29,10 +36,11 @@
 <br>
 <% end %>
 <br>
-<br> 
-<h2>WILL AUTHORIZE: OWNER-ONLY SECTION</h2>
+<br>
+<% if current_user.id == @restaurant.owner.id %>
+<h2>AUTHORIZED VIEW: OWNER-ONLY SECTION</h2>
+<h3>Welcome, <%= @restaurant.owner.email%>!</h3>
 <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back to Restaurants Index', restaurants_path %> |
 <%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
 <br>
 <h4>List of Diners with open checks at this restaurant:</h4>
@@ -41,10 +49,10 @@
 <% end %>
 
 <h5>Old Receipts</h5>
-<% @restaurant.diners.each do |diner| %>
-  <%= diner.email %>
+<% @restaurant.checks.closed.each do |check| %>
+  <p><%= link_to "#{check.diner.email} at #{check.paid_at}", check_path(check) %></p>
 <% end %>
-
+<% end %>
 
 <br>
 <br>

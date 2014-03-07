@@ -6,6 +6,7 @@ class Check < ActiveRecord::Base
 	validates :user_id, :restaurant_id, :presence => true
 
 	scope :pending, -> { where(paid_at: nil) }
+	scope :closed, -> { where.not(paid_at: nil) }
 
 	def total
 		total = 0
