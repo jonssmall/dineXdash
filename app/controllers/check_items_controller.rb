@@ -1,6 +1,7 @@
 class CheckItemsController < ApplicationController
   # before_action :set_check_item, only: [:show, :edit, :update, :destroy]
   before_filter :load_check
+  before_filter :pending_check, only: [:create]
 
   # def index
   #   @check_items = @check.check_items.all
@@ -18,19 +19,23 @@ class CheckItemsController < ApplicationController
   # end
 
   def create
-    @menu_item = MenuItem.find(params[:menu_item][:id])
-    @check_item = @check.check_items.new
-    @check_item.quantity = params[:check_item][:quantity].to_i
-    @check_item.price = @menu_item.price
-    @check_item.item_name = @menu_item.item_name
-    @check_item.item_desc = @menu_item.item_desc
-    @check_item.check_id = @check.id
+    if @check.paid_at
+      redirect_to check_path(@check), alert: "You can't add new items to old receipts!"
+    else
+      @menu_item = MenuItem.find(params[:menu_item][:id])
+      @check_item = @check.check_items.new
+      @check_item.quantity = params[:check_item][:quantity].to_i
+      @check_item.price = @menu_item.price
+      @check_item.item_name = @menu_item.item_name
+      @check_item.item_desc = @menu_item.item_desc
+      @check_item.check_id = @check.id
 
-    respond_to do |format|
-      if @check_item.save
-        format.html { redirect_to check_path(@check), notice: 'Check item was successfully created.' }
-      else
-        format.html { render 'checks/show' }   
+      respond_to do |format|
+        if @check_item.save
+          format.html { redirect_to check_path(@check), notice: 'Check item was successfully created.' }
+        else
+          format.html { render 'checks/show' }   
+        end
       end
     end
   end
@@ -67,4 +72,11 @@ class CheckItemsController < ApplicationController
     def load_check
       @check=Check.find(params[:check_id])
     end
+
+    def pending_check
+      if @check.paid_at
+        flash[:alert] = "You can't add items to an old receipt."
+      end
+    end
+
 end

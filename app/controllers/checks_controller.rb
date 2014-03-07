@@ -1,14 +1,20 @@
 class ChecksController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update, :destroy]
+  before_action :set_check, only: [:pay, :show, :edit, :update, :destroy]
   before_action :one_pending_check, only: [:create]
   # before_action :ensure_single_check, only: [:new, :create]
   def index
     @checks = Check.all
   end
 
-  # def pay
-  #   redirect_to @check, notice: "You pushed a button."
-  # end
+  def pay
+    @check.paid_at = DateTime.now.utc
+    @check.save
+
+    @check.diner.checked_in = false
+    @check.diner.save
+    redirect_to check_path(@check), notice: "Payment confirmed."
+
+  end
 
   def show
     @check_item = @check.check_items.new

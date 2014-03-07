@@ -1,11 +1,16 @@
 <p>
-  <strong>User:</strong>
-  <%= @check.user_id %>
+  <strong>Current Diner:</strong>
+  <%= @check.diner.email %>
+</p>
+
+<p>
+  <strong>Restaurant Owner:</strong>
+  <%= @check.restaurant.owner.email %>
 </p>
 
 <p>
   <strong>Restaurant:</strong>
-  <%= @check.restaurant_id %>
+  <%= @check.restaurant.name %>
 </p>
 
 <p>
@@ -32,7 +37,7 @@
 
 <h2>Total: <%= number_to_currency(subtotal + tip_amount + tax_amount) %></h2>
 <br>
-<%= button_to 'Pay now' %>
+<%= button_to 'Pay now', pay_check_path(@check), method: :post %>
 <br>
 <br>
 

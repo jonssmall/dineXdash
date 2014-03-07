@@ -1,13 +1,22 @@
 DineXdash::Application.routes.draw do
 
   resources :checks, except: :new do
-      resources :check_items
-      # get :pay
+    resources :check_items
+    # get 'checks/pay' => 'checks#'
+    member do
+      post :pay, :action =>:pay
+    end 
   end
 
   resources :restaurants do
     resources :menu_items
   end
+
+  # namespace "checks" do
+  #   resources :checks do
+  #     get :pay, :on => :collection
+  #    end
+  # end
 
 root :to => 'restaurants#index'
 resources :user_sessions

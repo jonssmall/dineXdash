@@ -25,7 +25,7 @@
 <% @restaurant.menu_items.each do |i| %>
 <%= i.item_name %>
 <%= i.item_desc %>
-<%= i.price %>
+<%= number_to_currency(i.price) %>
 <br>
 <% end %>
 <br>
