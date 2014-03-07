@@ -35,9 +35,14 @@
 <%= link_to 'Back to Restaurants Index', restaurants_path %> |
 <%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
 <br>
-<h4>List of Diners checked into this restaurant:</h4>
+<h4>List of Diners with open checks at this restaurant:</h4>
 <% @restaurant.checks.pending.each do |check| %>
 	<%= link_to "#{check.diner.email}", check_path(check) %>
+<% end %>
+
+<h5>Old Receipts</h5>
+<% @restaurant.diners.each do |diner| %>
+  <%= diner.email %>
 <% end %>
 
 

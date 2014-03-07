@@ -2,6 +2,8 @@ class ChecksController < ApplicationController
   before_action :set_check, only: [:pay, :show, :edit, :update, :destroy]
   before_action :one_pending_check, only: [:create]
   # before_action :ensure_single_check, only: [:new, :create]
+  before_filter :ensure_current_diner_or_owner, only: [:show]
+
   def index
     @checks = Check.all
   end
@@ -76,6 +78,12 @@ class ChecksController < ApplicationController
       if current_user.checks.pending.any?
         flash[:alert] = "You can't be in two places at once... yet."
         redirect_to(:back)
+      end
+    end
+
+    def ensure_current_diner_or_owner
+      unless current_user.id == @check.diner.id || current_user.id == @check.restaurant.owner.id
+        redirect_to root_url, alert: "You can't view another user's checks!"
       end
     end
 

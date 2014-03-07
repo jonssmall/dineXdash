@@ -3,6 +3,7 @@ class CheckItemsController < ApplicationController
   before_filter :load_check
   before_filter :pending_check, only: [:create]
 
+
   # def index
   #   @check_items = @check.check_items.all
   # end
@@ -78,5 +79,7 @@ class CheckItemsController < ApplicationController
         flash[:alert] = "You can't add items to an old receipt."
       end
     end
+
+
 
 end
