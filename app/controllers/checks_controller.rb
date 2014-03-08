@@ -9,12 +9,16 @@ class ChecksController < ApplicationController
   end
 
   def pay
-    @check.paid_at = DateTime.now.utc
-    @check.save
-
-    @check.diner.checked_in = false
-    @check.diner.save
-    redirect_to check_path(@check), notice: "Payment confirmed."
+    if current_user.id != @check.diner.id
+      redirect_to check_path(@check), alert: "You can't pay for a bill that isn't yours!"
+    else 
+      @check.paid_at = DateTime.now.utc
+      @check.save
+      
+      @check.diner.checked_in = false
+      @check.diner.save
+      redirect_to check_path(@check), notice: "Payment confirmed."
+    end
 
   end
 
