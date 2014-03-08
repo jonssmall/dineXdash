@@ -18,7 +18,9 @@ class ApplicationController < ActionController::Base
   # end
 
   def admin_user
-    redirect_to(:back) unless current_user.admin?, alert: 'You must be an admin to view this!'
+    unless current_user.admin?
+      redirect_to(:back, alert: 'You must be an admin to do that!')
+    end
   end
   
 end

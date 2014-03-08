@@ -2,7 +2,8 @@ class ChecksController < ApplicationController
   before_action :set_check, only: [:pay, :show, :edit, :update, :destroy]
   before_action :one_pending_check, only: [:create]
   # before_action :ensure_single_check, only: [:new, :create]
-  before_filter :ensure_current_diner_or_owner, only: [:show]
+  before_filter :ensure_current_diner_or_owner_or_admin, only: [:show]
+  before_filter :admin_user, only: [:index]
 
   def index
     @checks = Check.all
@@ -85,8 +86,8 @@ class ChecksController < ApplicationController
       end
     end
 
-    def ensure_current_diner_or_owner
-      unless current_user.id == @check.diner.id || current_user.id == @check.restaurant.owner.id
+    def ensure_current_diner_or_owner_or_admin
+      unless current_user.admin? || current_user.id == @check.restaurant.owner.id || current_user.id == @check.diner.id
         redirect_to root_url, alert: "You can't view another user's checks!"
       end
     end

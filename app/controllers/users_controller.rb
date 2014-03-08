@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :require_login, only: [:index, :new, :create]
+  skip_before_filter :require_login, only: [:new, :create]
+  before_filter :admin_user, only: [:index, :destroy]
+  before_filter :ensure_current_user_or_admin, only: [:edit, :show]
+
 
   def index
     @users = User.all
@@ -52,6 +55,12 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def ensure_current_user_or_admin
+      unless current_user.id = @user.id
+        redirect_to :back, alert: "You can't mess with another user!"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

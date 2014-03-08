@@ -1,14 +1,14 @@
 class MenuItemsController < ApplicationController
   before_filter :load_restaurant
-  before_filter :ensure_owner, except: [:show, :index]
+  before_filter :ensure_owner_or_admin
 
-  def index
-    @menu_items = @restaurant.menu_items.all
-  end
+  # def index
+  #   @menu_items = @restaurant.menu_items.all
+  # end
 
-  def show
-    @menu_item=@restaurant.menu_items.find(params[:id])
-  end
+  # def show
+  #   @menu_item=@restaurant.menu_items.find(params[:id])
+  # end
 
   def new
     @menu_item = @restaurant.menu_items.new
@@ -34,7 +34,7 @@ class MenuItemsController < ApplicationController
     @menu_item=@restaurant.menu_items.find(params[:id])
     respond_to do |format|
       if @menu_item.update(menu_item_params)
-        format.html { redirect_to [@restaurant, @menu_item], notice: 'Menu item was successfully updated.' }
+        format.html { redirect_to restaurant_path(@restaurant), notice: 'Menu item was successfully updated.' }
       else
         format.html { render action: 'edit' }
       end
@@ -58,9 +58,10 @@ class MenuItemsController < ApplicationController
       @restaurant=Restaurant.find(params[:restaurant_id])
     end
 
-    def ensure_owner
-      unless current_user.id == @restaurant.owner.id
-        redirect_to restaurant_path(@restaurant), alert: "Only the owner/POS can add or remove menu items to this restaurant!"
+    def ensure_owner_or_admin
+      unless current_user.admin? || current_user.id == @restaurant.owner.id 
+        redirect_to :back, alert: "Only the owner/POS can make changes to this restaurant!"
       end
     end
+
 end
