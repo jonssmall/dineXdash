@@ -22,7 +22,13 @@
 <% subtotal = 0 %>
 <% @check.check_items.each do |item| %>
   <% if item.id.present? %>
-	 <p><%= item.item_name %> Quantity: <%= item.quantity %> Price per Unit: <%= number_to_currency(item.price) %>  <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong></p>
+	 <p><%= item.item_name %> 
+      Quantity: <%= item.quantity %> 
+      Price per Unit: <%= number_to_currency(item.price) %>  
+      <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong> 
+      
+      <%= link_to "Delete", {:controller => :check_items, :action => 'destroy', check_id: item.check.id, :id => item.id }, :method => :delete, :confirm => 'Are you sure?' %>
+    </p>
    <% subtotal += (item.price * item.quantity) %>
   <% end %>
 <% end %>
@@ -45,25 +51,24 @@
 <br>
 <br>
 
-<h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
-<%= form_for [@check, @check_item] do |f| %>
-  <% if @check_item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@check_item.errors.count, "error") %> prohibited this check_item from being saved:</h2>
+<% if current_user.id == @check.restaurant.owner.id %>
+  <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
+  <%= form_for [@check, @check_item] do |f| %>
+    <% if @check_item.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@check_item.errors.count, "error") %> prohibited this check_item from being saved:</h2>
 
-      <ul>
-      <% @check_item.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+        <ul>
+        <% @check_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
+  	<%= f.number_field :quantity %>
+  	<%= f.submit "Add Item" %>
   <% end %>
-	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
-	<%= f.number_field :quantity %>
-	<%= f.submit "Add Item" %>
 <% end %>
-
-<%= link_to 'Edit', edit_check_path(@check) %> |
-<%= link_to 'Back', checks_path %>
 
 

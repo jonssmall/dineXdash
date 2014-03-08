@@ -53,9 +53,10 @@ class CheckItemsController < ApplicationController
   end
 
   def destroy
+    @check_item = CheckItem.find(params[:id])
     @check_item.destroy
     respond_to do |format|
-      format.html { redirect_to check_check_items_path(@check) }
+      format.html { redirect_to check_path(@check) }
     end
   end
 
