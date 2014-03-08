@@ -37,7 +37,11 @@
 
 <h2>Total: <%= number_to_currency(subtotal + tip_amount + tax_amount) %></h2>
 <br>
+<% if @check.paid_at == nil %> <!-- make a better check than nil !-->
 <%= button_to 'Pay now', pay_check_path(@check), method: :post %>
+<% else %>
+<p>Check closed. Thanks for eating at <%= @check.restaurant.name %></p>
+<% end %>
 <br>
 <br>
 
