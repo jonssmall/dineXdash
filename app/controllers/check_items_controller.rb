@@ -1,29 +1,9 @@
 class CheckItemsController < ApplicationController
-  # before_action :set_check_item, only: [:show, :edit, :update, :destroy]
   before_filter :load_check
   before_filter :closed_check, only: [:create, :destroy]
   before_filter :ensure_pos
 
-
-  # def index
-  #   @check_items = @check.check_items.all
-  # end
-
-  # def show
-  # end
-
-  # def new
-  #   @check_item = @check.check_items.new
-  # end
-
-  # def edit
-  #   @check_item = @check.check_items.find(params[:id])
-  # end
-
   def create
-    # if @check.paid_at
-    #   redirect_to check_path(@check), alert: "You can't add new items to old receipts!"
-    # else
       @menu_item = MenuItem.find(params[:menu_item][:id])
       @check_item = @check.check_items.new
       @check_item.quantity = params[:check_item][:quantity].to_i
@@ -39,7 +19,6 @@ class CheckItemsController < ApplicationController
           format.html { render 'checks/show' }   
         end
       end
-    # end
   end
 
   def update
@@ -62,12 +41,6 @@ class CheckItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    # def set_check_item
-    #   @check_item = CheckItem.find(params[:id])
-    # end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def check_item_params
       params.require(:check_item).permit(:quantity, :item_name, :item_desc, :price)
     end
@@ -87,5 +60,4 @@ class CheckItemsController < ApplicationController
         redirect_to check_path(@check), alert: "Only the owner/POS can add or remove items on this check!"
       end
     end
-
 end

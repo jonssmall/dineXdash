@@ -1,8 +1,6 @@
 class MenuItemsController < ApplicationController
-  #before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
   before_filter :load_restaurant
   before_filter :ensure_owner, except: [:show, :index]
-  #render "menu_items/show"
 
   def index
     @menu_items = @restaurant.menu_items.all
@@ -52,10 +50,6 @@ class MenuItemsController < ApplicationController
   end
 
   private
-    # def set_menu_item
-    #   @menu_item = MenuItem.find(params[:id])
-    # end
-
     def menu_item_params
       params.require(:menu_item).permit(:restaurant_id, :item_name, :item_desc, :price)
     end
@@ -69,5 +63,4 @@ class MenuItemsController < ApplicationController
         redirect_to restaurant_path(@restaurant), alert: "Only the owner/POS can add or remove menu items to this restaurant!"
       end
     end
-
 end
