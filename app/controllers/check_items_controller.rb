@@ -1,7 +1,8 @@
 class CheckItemsController < ApplicationController
   # before_action :set_check_item, only: [:show, :edit, :update, :destroy]
   before_filter :load_check
-  before_filter :pending_check, only: [:create]
+  before_filter :closed_check, only: [:create, :destroy]
+  before_filter :ensure_pos
 
 
   # def index
@@ -20,9 +21,9 @@ class CheckItemsController < ApplicationController
   # end
 
   def create
-    if @check.paid_at
-      redirect_to check_path(@check), alert: "You can't add new items to old receipts!"
-    else
+    # if @check.paid_at
+    #   redirect_to check_path(@check), alert: "You can't add new items to old receipts!"
+    # else
       @menu_item = MenuItem.find(params[:menu_item][:id])
       @check_item = @check.check_items.new
       @check_item.quantity = params[:check_item][:quantity].to_i
@@ -38,7 +39,7 @@ class CheckItemsController < ApplicationController
           format.html { render 'checks/show' }   
         end
       end
-    end
+    # end
   end
 
   def update
@@ -75,12 +76,16 @@ class CheckItemsController < ApplicationController
       @check=Check.find(params[:check_id])
     end
 
-    def pending_check
+    def closed_check
       if @check.paid_at
-        flash[:alert] = "You can't add items to an old receipt."
+        redirect_to check_path(@check), alert: "You can't change items on an old receipt."
       end
     end
 
-
+    def ensure_pos
+      unless current_user.id == @check.restaurant.owner.id
+        redirect_to check_path(@check), alert: "Only the owner/POS can add or remove items on this check!"
+      end
+    end
 
 end

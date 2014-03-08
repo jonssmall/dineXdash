@@ -26,8 +26,9 @@
       Quantity: <%= item.quantity %> 
       Price per Unit: <%= number_to_currency(item.price) %>  
       <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong> 
-      
-      <%= link_to "Delete", {:controller => :check_items, :action => 'destroy', check_id: item.check.id, :id => item.id }, :method => :delete, :confirm => 'Are you sure?' %>
+      <% if @check.paid_at == nil && current_user.id == @check.restaurant.owner.id %>
+        <%= link_to "Delete", {:controller => :check_items, :action => 'destroy', check_id: item.check.id, :id => item.id }, :method => :delete, :confirm => 'Are you sure?' %>
+      <% end %>
     </p>
    <% subtotal += (item.price * item.quantity) %>
   <% end %>
