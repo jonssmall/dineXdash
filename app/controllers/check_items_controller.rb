@@ -2,7 +2,8 @@ class CheckItemsController < ApplicationController
   # before_action :set_check_item, only: [:show, :edit, :update, :destroy]
   before_filter :load_check
   before_filter :closed_check, only: [:create, :destroy]
-  before_filter :ensure_pos
+  before_filter :ensure_pos, except: [:index, :show]
+  # before_action :admin_user, only: [:index, :show]
 
 
   # def index

@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
   #     redirect_to root_path
   #   end
   # end
+
+  def admin_user
+    redirect_to(:back) unless current_user.admin?, alert: 'You must be an admin to view this!'
+  end
   
 end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306222638) do
+ActiveRecord::Schema.define(version: 20140308210350) do
 
   create_table "check_items", force: true do |t|
     t.string   "item_name"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140306222638) do
     t.datetime "updated_at"
     t.boolean  "checked_in",       default: false
     t.integer  "tip",              default: 15
+    t.boolean  "admin",            default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
