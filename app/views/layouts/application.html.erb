@@ -13,7 +13,19 @@
 
   <body>
 
-    
+    <div class="row">
+    <div class="large-3 columns">
+      <h1><img src="http://placehold.it/400x100&text=Logo" /></h1>
+    </div>
+    <div class="large-9 columns">
+      <ul class="right button-group">
+        <%= link_to 'Users', users_path, :class=>"button" %>
+        <%= link_to 'Checks', checks_path, :class=>"button" %>
+         <%= link_to 'Restaurants', restaurants_path, :class=>"button" %>
+
+      </ul>
+  </div>
+  </div>
 <div id="nav">
     <% if current_user %>
     Logged in as <%= current_user.email %> | 
@@ -32,11 +44,6 @@
 <%= yield %>
 
 <h4>
-  <%= link_to 'Users', users_path %>
-  <%= link_to 'Checks', checks_path %>
-  <%= link_to 'Restaurants', restaurants_path %>
-
-
     
     <%= javascript_include_tag "application" %>
   </body>
