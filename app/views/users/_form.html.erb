@@ -12,19 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :email %><br>
+      <div class="small-3 columns">
+    <%= f.label :email, class:"right inline" %><br>
+  </div>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+     <div class="small-3 columns">
+    <%= f.label :password, class:"right inline" %><br />
+  </div>
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <div class="small-3 columns">
+    <%= f.label :password_confirmation , class:"right inline"%><br />
+  </div>
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
-    <%= f.label :tip_percentage %><br>
+    <div class="small-3 columns">
+    <%= f.label :tip_percentage, class:"right inline" %><br>
+  </div>
     <%= f.number_field :tip%>
   </div>
 
