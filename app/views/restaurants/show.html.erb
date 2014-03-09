@@ -29,19 +29,12 @@
 <br>
 <br>
 <p> Menu items for this restaurant: </p>
-<% @restaurant.menu_items.each do |i| %>
-<%= i.item_name %>
-<%= i.item_desc %>
-<%= number_to_currency(i.price) %>
-<% if current_user.id == @restaurant.owner.id %>
-        <%= link_to "Delete", {:controller => :menu_items, :action => 'destroy', restaurant_id: i.restaurant.id, id: i.id}, :method => :delete %>
-        <%= link_to "Edit", edit_restaurant_menu_item_path(@restaurant, i) %>
-<%end %>
-<br>
-<% end %>
+<div id='menu-list'>
+  <%= render partial: "menu_items" %>
+</div>
 <br>
 <br>
-<% if current_user.id == @restaurant.owner.id %>
+<% if current_user && current_user.id == @restaurant.owner.id %>
 <h2>AUTHORIZED VIEW: OWNER-ONLY SECTION</h2>
 <h3>Welcome, <%= @restaurant.owner.email%>!</h3>
 <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant) %> |
@@ -56,10 +49,51 @@
 <% @restaurant.checks.closed.each do |check| %>
   <p><%= link_to "#{check.diner.email} at #{check.paid_at}", check_path(check) %></p>
 <% end %>
+
+<h3>Add menu items to your restaurant.</h3>
+  <%= form_for([@restaurant, @menu_item], remote: true) do |f| %>
+    <div id='menu-item-errors'>
+      <%= render partial: "/restaurants/menu_item_errors" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :item_name %><br>
+      <%= f.text_field :item_name %>
+    </div>
+    <div class="field">
+      <%= f.label :item_desc %><br>
+      <%= f.text_area :item_desc %>
+    </div>
+    <div class="field">
+      <%= f.label :price %><br>
+      <%= f.text_field :price %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
 <% end %>
 
 <br>
 <br>
 <br>
+
+<!-- Need to get working -->
+<script type="text/javascript">
+  $(function() {
+     $("#new_menu_item")
+        .on('ajax:beforeSend', function() { // set this code to happen just before the ajax request is made
+          $("input[type='submit']") // make changes to the submit button
+            .val('Saving...') // change the text on the button
+            .attr('disabled', 'disabled'); // disable the button
+        })
+        .on('ajax:complete', function() {
+          $("input[type='submit']")
+            .val('Create MenuItem')
+            .removeAttr('disabled');
+        });
+  });
+</script>
 
 

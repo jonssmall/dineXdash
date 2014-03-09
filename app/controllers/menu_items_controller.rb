@@ -24,8 +24,10 @@ class MenuItemsController < ApplicationController
     respond_to do |format|
       if @menu_item.save
         format.html { redirect_to restaurant_path(@restaurant), notice: 'Menu item was successfully created.' }
+        format.js {}
       else
         format.html { render action: 'new' }  
+        format.js {}
       end
     end
   end

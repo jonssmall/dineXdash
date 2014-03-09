@@ -1,0 +1,12 @@
+<% @restaurant.menu_items.each do |i| %>
+  <% if i.id.present? %>
+  <%= i.item_name %>
+  <%= i.item_desc %>
+  <%= number_to_currency(i.price) %>
+  <% if current_user && current_user.id == @restaurant.owner.id %>
+          <%= link_to "Delete", {:controller => :menu_items, :action => 'destroy', restaurant_id: i.restaurant.id, id: i.id}, :method => :delete %>
+          <%= link_to "Edit", edit_restaurant_menu_item_path(@restaurant, i) %>
+  <%end %>
+  <br>
+  <% end %>
+<% end %>

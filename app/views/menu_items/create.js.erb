@@ -1,0 +1,7 @@
+<% if @menu_item.errors.present? %>
+  $("#menu-item-errors").html("<%= escape_javascript(render(:partial => '/restaurants/menu_item_errors')) %>");
+<% else %>
+  $("#menu-item-errors").html("");
+  $("#menu-list").html("<%= escape_javascript(render(:partial => '/restaurants/menu_items')) %>");
+  // $("#new_menu_item")[0].reset();
+<% end %>
