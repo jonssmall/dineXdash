@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :require_login, only: [:new, :create]
   before_filter :admin_user, only: [:index, :destroy]
-  before_filter :ensure_current_user_or_admin, only: [:edit, :show]
+  before_filter :ensure_current_user_or_admin, only: [:edit, :update, :show]
 
 
   def index
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     end
 
     def ensure_current_user_or_admin
-      unless current_user.id = @user.id
+      unless current_user.id == @user.id || current_user.admin?
         redirect_to :back, alert: "You can't mess with another user!"
       end
     end
