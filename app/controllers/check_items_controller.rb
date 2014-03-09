@@ -16,8 +16,10 @@ class CheckItemsController < ApplicationController
       respond_to do |format|
         if @check_item.save
           format.html { redirect_to check_path(@check), notice: 'Check item was successfully created.' }
+          format.js {}
         else
           format.html { render 'checks/show' }   
+          format.js {}
         end
       end
   end

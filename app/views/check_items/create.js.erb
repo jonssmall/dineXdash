@@ -1,0 +1,7 @@
+<% if @check_item.errors.present? %>
+  $("#check-item-errors").html("<%= escape_javascript(render(:partial => '/checks/check_item_errors')) %>");
+<% else %>
+  $("#check-item-errors").html("");
+  $("#check-item-list").html("<%= escape_javascript(render(:partial => '/checks/check_items')) %>");
+  $("#new_check_item")[0].reset();
+<% end %>

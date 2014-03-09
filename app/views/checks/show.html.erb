@@ -19,30 +19,12 @@
 </p>
 <h3>WILL AUTHORIZE: USER Perspective to PAY BILL</h3>
 
-<% subtotal = 0 %>
-<% @check.check_items.each do |item| %>
-  <% if item.id.present? %>
-	 <p><%= item.item_name %> 
-      Quantity: <%= item.quantity %> 
-      Price per Unit: <%= number_to_currency(item.price) %>  
-      <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong> 
-      <% if @check.paid_at == nil && current_user.id == @check.restaurant.owner.id %>
-        <%= link_to "Delete", {:controller => :check_items, :action => 'destroy', check_id: item.check.id, :id => item.id }, :method => :delete, :confirm => 'Are you sure?' %>
-      <% end %>
-    </p>
-   <% subtotal += (item.price * item.quantity) %>
-  <% end %>
-<% end %>
 
-<h4>Subtotal: <%= number_to_currency(subtotal) %></h4>
+<div id='check-item-list'>
+  <%= render partial: 'checks/check_items' %>
+</div>
 
-<% tip_amount = (subtotal * (@check.diner.tip / 100.0)).round(2) %>
-<h4>Tip (at <%= @check.diner.tip %>%): <%= number_to_currency(tip_amount) %></h4>
 
-<% tax_amount = (subtotal * 0.14).round(2) %>
-<h4>HST (14%): <%= number_to_currency(tax_amount) %></h4>
-
-<h2>Total: <%= number_to_currency(subtotal + tip_amount + tax_amount) %></h2>
 <br>
 <% if @check.paid_at == nil %> <!-- make a better check than nil !-->
 <%= button_to 'Pay now', pay_check_path(@check), method: :post %>
@@ -54,20 +36,12 @@
 
 <% if current_user.id == @check.restaurant.owner.id %>
   <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
-  <%= form_for [@check, @check_item] do |f| %>
-    <% if @check_item.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@check_item.errors.count, "error") %> prohibited this check_item from being saved:</h2>
-
-        <ul>
-        <% @check_item.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <%= form_for [@check, @check_item], remote: true do |f| %>
+  <div id='check-item-errors'>
+    <%= render partial: 'checks/check_item_errors' %>
+  </div>
   	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
-  	<%= f.number_field :quantity %>
+  	<%= f.number_field :quantity, default: nil %>
   	<%= f.submit "Add Item" %>
   <% end %>
 <% end %>

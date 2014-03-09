@@ -1,0 +1,11 @@
+<% if @check_item.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@check_item.errors.count, "error") %> prohibited this check_item from being saved:</h2>
+
+        <ul>
+        <% @check_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
