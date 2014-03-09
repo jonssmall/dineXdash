@@ -23,9 +23,11 @@
     </div>
     <div class="large-9 columns">
       <ul class="right button-group">
-        <%= link_to 'Users', users_path, :class=>"button" %>
-        <%= link_to 'Checks', checks_path, :class=>"button" %>
-         <%= link_to 'Restaurants', restaurants_path, :class=>"button" %>
+        <% if current_user.admin? %>
+          <%= link_to 'Users', users_path, :class=>"button" %>
+          <%= link_to 'Checks', checks_path, :class=>"button" %>
+        <% end %>
+        <%= link_to 'Restaurants', restaurants_path, :class=>"button" %>
 
       </ul>
   </div>
