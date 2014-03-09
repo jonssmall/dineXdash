@@ -11,7 +11,7 @@ DineXdash::Application.routes.draw do
     resources :menu_items, except: [:index, :show]
   end
 
-root :to => 'restaurants#index'
+root :to => 'static_pages#home'
 resources :user_sessions
 resources :users
 

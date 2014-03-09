@@ -1,0 +1,26 @@
+<h1>Welcome to dineXdash!</h1>
+
+<div id='row1'>
+	<h3>This is row 1. <span class='button radius' id='expand'>Click this!</span></h3>
+
+</div>
+<div id='row2'>
+	<h3>This is row 2</h3>
+</div>
+
+<% name = @restaurant.name %>
+
+<script type="text/javascript">
+var name = "<%= @restaurant.name %>"
+
+	var extra = document.createElement('div');
+	var txt = document.createTextNode(name + '');
+	extra.appendChild(txt)
+	$(function() {
+		$('#expand').on('click', function(){
+			$('#row1').append(extra)
+		});
+	});
+
+
+</script>
