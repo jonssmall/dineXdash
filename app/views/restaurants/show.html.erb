@@ -69,7 +69,7 @@
       <%= f.text_field :price %>
     </div>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "Create Menu Item", id: "newitem_button", class: "button", disable_with: "Submitting.."  %>
     </div>
   <% end %>
 
@@ -86,7 +86,7 @@
         .on('ajax:beforeSend', function() { // set this code to happen just before the ajax request is made
           $("input[type='submit']") // make changes to the submit button
             .val('Saving...') // change the text on the button
-            .attr('disabled', 'disabled'); // disable the button
+            .attr('disabled', true); // disable the button
         })
         .on('ajax:complete', function() {
           $("input[type='submit']")
