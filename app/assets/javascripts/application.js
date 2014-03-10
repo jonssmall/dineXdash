@@ -13,7 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(function(){ 
+	$(document).foundation(); 
+	
+	// $(".accordion").on("click", "section", function (event) {
+ //   		$("section.active").find(".content").slideToggle("slow");
+ //   		$(this).find(".content").slideToggle("slow");
+ // 	});
+
+});

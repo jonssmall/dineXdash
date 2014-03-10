@@ -5,7 +5,7 @@
   <%= link_to "Logout", :logout, method: :post %>
 </p>
 
-	<% if current_user.checks.any? %>
+	<% if current_user.checks.pending.any? %>
 		<p>
 			<strong>Currently checked in to:</strong>
 			<%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>

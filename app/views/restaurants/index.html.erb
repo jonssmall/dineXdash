@@ -1,34 +1,5 @@
 <h1>Listing restaurants</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Description</th>
-      <th>Owner ID</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @restaurants.each do |restaurant| %>
-      <tr>
-        <td><%= restaurant.name %></td>
-        <td><%= restaurant.address %></td>
-        <td><%= restaurant.description %></td>
-        <td><%= restaurant.owner_id %></td>
-        <td><%= link_to 'Show', restaurant %></td>
-        <% if current_user && current_user.admin? %>
-          <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-          <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
 <dl class="accordion" data-accordion>
   <% rcounter = 1 %>
   <% @restaurants.each do |r| %>
@@ -59,3 +30,19 @@
 <%= render 'user_sessions/form' %>
 
 <%= link_to 'New Restaurant', new_restaurant_path %>
+
+<script type="text/javascript">
+$(function(){ 
+  
+  $(".accordion").on("click", "section", function (event) {
+      $("section.active").find(".content").slideToggle("slow");
+      $(this).find(".content").slideToggle("slow");
+  });
+
+});
+
+</script>
+
+
+
+

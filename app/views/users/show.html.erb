@@ -9,8 +9,10 @@
 </p>
 
 	<% if current_user.checks.any? %>
-		<strong>Currently checked in to:</strong>
-		<%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>
+		<% if current_user.checks.pending.any? %>
+			<strong>Currently checked in to:</strong>
+			<%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>
+		<% end %>
 		<h5>Old Receipts</h5>
 		<% current_user.checks.closed.each do |check| %>
   		<p><%= link_to "#{check.restaurant.name} at #{check.paid_at}", check_path(check) %></p>
