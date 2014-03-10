@@ -8,11 +8,11 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
     	if @user = login(params[:email], params[:password])
         format.html {redirect_back_or_to(:root, notice: 'Login successful')}
-        format.js {}
+        # format.js {}
       else
         # flash.now[:alert] = "Login failed"
         format.html{ render action: "new", alert: 'Login failed' }
-        format.js {}
+        # format.js {}
       end
     end
   end

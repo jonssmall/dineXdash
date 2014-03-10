@@ -50,37 +50,29 @@
   <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name">
-        <h1><a href="#">dineXdash</a></h1>
+        <h1><a href='/'>dineXdash</a></h1>
       </li>
       <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
     </ul>
 
     <section class="top-bar-section">
       <!-- Right Nav Section -->
-      
-      <ul class="right">
-        <li> <%= link_to 'Restaurants', restaurants_path %>  </li>
-      </ul>
-
-
-      <% if current_user %>
-      <ul class="right">
-        <li class="has-dropdown">
-          <a href="#">Logged in as: <%= current_user.email %> </a>
-          <ul class="dropdown">
-            <li> <%= link_to 'View my Profile', user_path(current_user) %>  </li>
-            <li> <%= link_to "Edit Profile", edit_user_path(current_user) %> </li>
-            <li> <%= link_to "Logout", :logout, method: :post %> </li>
-          </ul>
-        </li>
-      </ul>
-
-      <% else %>
-      <ul class="right">
-          <li><%= link_to "Register", new_user_path %> </li>
-          <li><%= link_to "Login", :login %> </li>
-      <% end %> 
-      </ul>
+        <ul class="right">
+          <% if current_user %>
+            <li class="has-dropdown">
+              <a href="#">Logged in as: <%= current_user.email %> </a>
+              <ul class="dropdown">
+                <li> <%= link_to 'View my Profile', user_path(current_user) %>  </li>
+                <li> <%= link_to "Edit Profile", edit_user_path(current_user) %> </li>
+                <li> <%= link_to "Logout", :logout, method: :post %> </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Register", new_user_path %> </li>
+            <li><%= link_to "Login", :login %> </li>
+          <% end %> 
+            <li> <%= link_to 'Restaurants', restaurants_path %>  </li> 
+        </ul>
 
       <!-- Left Nav Section -->
       <% if current_user && current_user.admin? %>
@@ -108,7 +100,7 @@
       <br>
       <strong>Currently checked in to:</strong>
       <%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>
-     
+
     </p>
   <% end %>
 
