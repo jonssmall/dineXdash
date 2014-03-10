@@ -24,7 +24,7 @@
     </div>
     <div class="large-9 columns">
       <ul class="right button-group">
-        <% if current_user.admin? %>
+        <% if current_user && current_user.admin? %>
           <%= link_to 'Users', users_path, :class=>"button" %>
           <%= link_to 'Checks', checks_path, :class=>"button" %>
         <% end %>
@@ -46,5 +46,39 @@
 <h4>
     
     <%= javascript_include_tag "application" %>
+
+
+    <dl class="accordion" data-accordion>
+  <dd>
+    <a href="#panel1">Restaurant 1</a>
+    <div id="panel1" class="content active">
+      <h2> We could put content for restaurants here: eg description, photo, etc
+      </div>
+  </dd>
+  <dd>
+    <a href="#panel2">Restaurant 2</a>
+    <div id="panel2" class="content">
+      
+    </div>
+  </dd>
+  <dd>
+    <a href="#panel3">Restaurant 3</a>
+    <div id="panel3" class="content">
+     
+    </div>
+  </dd>
+</dl>
+
+
+
+<div id="myModal" class="reveal-modal" data-reveal>
+  <h2>We can use modals for rendering signup form here</h2>
+  <p class="lead">.</p>
+  <p> http://stackoverflow.com/questions/20726375/pop-up-reveal-modal-dialog-when-submit-by-using-ajax
+  </p> <br>
+  <p> Or maybe sth like this in users/_form.html.erb:
+    f.input id="my-submit" data-reveal-id="myModal" name="commit" type="submit" value="Submit"</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
   </body>
 </html>
