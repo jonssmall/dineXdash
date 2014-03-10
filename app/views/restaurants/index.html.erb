@@ -9,12 +9,12 @@
         <p><%= r.description %></p>
         <p><%= r.address %></p>
         <p><%= r.owner.email %></p>
-        <div class="tiny button round"><%= link_to 'Show Full Profile', r %></div>
+        <div><%= link_to 'Show Full Profile', r, class: 'button' %></div>
         <% r.menu_items.each do |item| %>
           <p><%= item.item_name %>: <%= item.item_desc %></p>
         <% end %>
         <% if current_user && !(current_user.checks.pending.any?) %>
-          <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => r.id ), method: :post %>
+          <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => r.id ), method: :post, class: 'button' %>
         <% end %>
         <% if current_user && current_user.admin? %>
           <p>Admin Actions: <%= link_to 'Edit', edit_restaurant_path(r) %> | 

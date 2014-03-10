@@ -46,32 +46,81 @@
     <div id="containertest"> <!-- THIS IS NEW STUFF FOR THE FOOTER-->
 <div id="headertest"><!-- THIS IS NEW STUFF FOR THE FOOTER-->
       
-<div class="contain-to-grid sticky" data-options="sticky_on: large">
+<div class="sticky" data-options="sticky_on: large">
   <nav class="top-bar" data-topbar>
-            <h3 style="color:white; font-weight:bold; text-align:center">dineXdash</h3>
-    </nav>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">dineXdash</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      
+      <ul class="right">
+        <li> <%= link_to 'Restaurants', restaurants_path %>  </li>
+      </ul>
+
+
+      <% if current_user %>
+      <ul class="right">
+        <li class="has-dropdown">
+          <a href="#">Logged in as: <%= current_user.email %> </a>
+          <ul class="dropdown">
+            <li> <%= link_to 'View my Profile', user_path(current_user) %>  </li>
+            <li> <%= link_to "Edit Profile", edit_user_path(current_user) %> </li>
+            <li> <%= link_to "Logout", :logout, method: :post %> </li>
+          </ul>
+        </li>
+      </ul>
+
+      <% else %>
+      <ul class="right">
+          <li><%= link_to "Register", new_user_path %> </li>
+          <li><%= link_to "Login", :login %> </li>
+      <% end %> 
+      </ul>
+
+      <!-- Left Nav Section -->
+      <% if current_user && current_user.admin? %>
+        <ul class="left">
+          <li class="has-dropdown">
+            <a href="#">Admin</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'Users', users_path, :class=>"button" %>
+                </li>
+                <li>
+                  <%= link_to 'Checks', checks_path, :class=>"button" %>
+                </li>
+              </ul>
+          </li>
+        </ul>
+      <% end %>
+    </section>
+  </nav>
 </div>
+
+
+  <% if current_user && current_user.checks.pending.any? %>
+    <p>
+      <br>
+      <strong>Currently checked in to:</strong>
+      <%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>
+     
+    </p>
+  <% end %>
+
 
 </div> <!-- THIS IS NEW STUFF FOR THE FOOTER-->
  <div id="bodytest"><!-- THIS IS NEW STUFF FOR THE FOOTER-->
     <div class="row">
     <div class="large-3 columns">
-      <h1><img src="http://placehold.it/400x100&text=Logo" /></h1>
     </div>
-    <div class="large-9 columns">
-      <ul class="right button-group">
-        <% if current_user && current_user.admin? %>
-          <%= link_to 'Users', users_path, :class=>"button" %>
-          <%= link_to 'Checks', checks_path, :class=>"button" %>
-        <% end %>
-        <%= link_to 'Restaurants', restaurants_path, :class=>"button" %>
+    
+  </div>
 
-      </ul>
-  </div>
-  </div>
-<div id="nav">
-  <%= render partial: 'layouts/nav' %>
-</div>
 <div>
   <p id="notice"><%= flash[:notice] %></p>
   <p id="alert"><%= flash[:alert] %></p>
@@ -85,7 +134,7 @@
 </div> <!--probably closing div for bodytest-->
 
 
-<div id="myModal" class="reveal-modal" data-reveal>
+<!-- <div id="myModal" class="reveal-modal" data-reveal>
   <h2>We can use modals for rendering signup form here</h2>
   <p class="lead">.</p>
   <p> http://stackoverflow.com/questions/20726375/pop-up-reveal-modal-dialog-when-submit-by-using-ajax
@@ -93,7 +142,7 @@
   <p> Or maybe sth like this in users/_form.html.erb:
     f.input id="my-submit" data-reveal-id="myModal" name="commit" type="submit" value="Submit"</p>
   <a class="close-reveal-modal">&#215;</a>
-</div>
+</div> -->
 
 <br>
 <br>
