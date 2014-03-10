@@ -32,6 +32,7 @@
    padding-bottom:60px;   /* Height of the footer */
 }
 #footertest {
+
    position: fixed;
    bottom:0;
    width:100%;
@@ -75,35 +76,13 @@
   <p id="notice"><%= flash[:notice] %></p>
   <p id="alert"><%= flash[:alert] %></p>
 </div>
+<div class="row">
+  <div class="twelve columns text-center"><br />
+    <%= yield %>
+  </div>
+</div>
 
-<%= yield %>
-
-<h4>
-    
-    <%= javascript_include_tag "application" %>
-
-
-    <dl class="accordion" data-accordion>
-  <dd>
-    <a href="#panel1">Restaurant 1</a>
-    <div id="panel1" class="content active">
-      <h2> We could put content for restaurants here: eg description, photo, etc
-      </div>
-  </dd>
-  <dd>
-    <a href="#panel2">Restaurant 2</a>
-    <div id="panel2" class="content">
-      
-    </div>
-  </dd>
-  <dd>
-    <a href="#panel3">Restaurant 3</a>
-    <div id="panel3" class="content">
-     
-    </div>
-  </dd>
-</dl>
-
+</div> <!--probably closing div for bodytest-->
 
 
 <div id="myModal" class="reveal-modal" data-reveal>
@@ -116,8 +95,8 @@
   <a class="close-reveal-modal">&#215;</a>
 </div>
 
-</div> <!--probably closing div for bodytest-->
-
+<br>
+<br>
 
     <div id='footertest' >
       <h3 style="color:white; font-weight:bold; text-align:center">Footer </h3></div>

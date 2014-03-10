@@ -1,34 +1,26 @@
 <h1>Welcome to dineXdash!</h1>
 
-
-<div class='row'>
-	<div class='small-9 columns'><h3>This is row 1.</h3></div>
-	<div class='small-3 columns'><span class='button radius' id='expand'>Click this!</span></div>
-</div>
-<div class='row'>
-	<h3>This is row 2.</h3>
-</div>
-
-<div id='row1'>
-	<h3>This is row 1. <span class='button radius' id='expand'>Click this!</span></h3>
-
-</div>
-<div id='row2'>
-	<h3>This is row 2</h3>
-</div>
+    
+    <%= javascript_include_tag "application" %>
 
 
-<script type="text/javascript">
-var name = "<%= @restaurant.name %>"
-
-	var extra = document.createElement('div');
-	var txt = document.createTextNode(name + '');
-	extra.appendChild(txt)
-	$(function() {
-		$('#expand').on('click', function(){
-			$('#row1').append(extra)
-		});
-	});
-
-
-</script>
+<dl class="accordion" data-accordion>
+	<dd>
+		<a href="#panel1">Restaurant 1</a>
+		<div id="panel1" class="content active">
+			<h2> We could put content for restaurants here: eg description, photo, etc
+			</div>
+		</dd>
+	<dd>
+		<a href="#panel2">Restaurant 2</a>
+		<div id="panel2" class="content">
+			
+		</div>
+	</dd>
+	<dd>
+		<a href="#panel3">Restaurant 3</a>
+		<div id="panel3" class="content">
+			
+		</div>
+	</dd>
+</dl>

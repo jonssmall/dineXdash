@@ -29,6 +29,32 @@
 
 <br>
 
+<dl class="accordion" data-accordion>
+  <% rcounter = 1 %>
+  <% @restaurants.each do |r| %>
+    <dd>
+      <a href="#panel<%= rcounter %>" ><%= r.name %></a>
+      <div id="panel<%= rcounter %>" class="content">
+        <p><%= r.description %></p>
+        <p><%= r.address %></p>
+        <p><%= r.owner.email %></p>
+        <div class="tiny button round"><%= link_to 'Show Full Profile', r %></div>
+        <% r.menu_items.each do |item| %>
+          <p><%= item.item_name %>: <%= item.item_desc %></p>
+        <% end %>
+        <% if current_user && !(current_user.checks.pending.any?) %>
+          <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => r.id ), method: :post %>
+        <% end %>
+        <% if current_user && current_user.admin? %>
+          <p>Admin Actions: <%= link_to 'Edit', edit_restaurant_path(r) %> | 
+          <%= link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        <% end %>
+      </div>
+    </dd>
+    <% rcounter += 1 %>
+  <% end %>
+</dl>
+
 <h3>AJAXified login form - use to be determined</h3>
 <%= render 'user_sessions/form' %>
 
