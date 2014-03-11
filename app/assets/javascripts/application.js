@@ -23,7 +23,13 @@ $(function(){
  //   		$(this).find(".content").slideToggle("slow");
  // 	});
 
-$('#footertest').addClass('animated slideInLeft');
+// $('#footertest').addClass('animated slideInLeft');
+
+$(".accordion dd").on("click", "a:eq(0)", function (event)
+      {
+        $(".accordion dd div.content:visible").slideToggle("normal");
+        $(this).parent().find(".content").slideToggle("normal");
+      });
 
 
 });
