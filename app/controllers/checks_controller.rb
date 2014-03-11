@@ -10,12 +10,23 @@ class ChecksController < ApplicationController
   end
 
   def pay
-    binding.pry
+    # binding.pry
     if current_user.id != @check.diner.id
       redirect_to check_path(@check), alert: "You can't pay for a bill that isn't yours!"
     else 
       @check.paid_at = DateTime.now.utc
       @check.tip = params[:check][:tip]
+      @check.save
+
+      subtotal = 0
+      @check.check_items.each do |item|
+        subtotal += item.price * item.quantity
+      end
+
+      tip_amount = subtotal * (@check.tip/ 100.0)
+      tax_amount = subtotal * 0.14
+
+      @check.total = subtotal + tip_amount + tax_amount
       @check.save
       
       @check.diner.checked_in = false
