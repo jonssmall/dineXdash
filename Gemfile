@@ -45,6 +45,9 @@ end
 
 gem 'compass-rails'
 
+gem "animate-rails"
+#Trying some animations
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

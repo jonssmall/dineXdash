@@ -23,4 +23,7 @@ $(function(){
  //   		$(this).find(".content").slideToggle("slow");
  // 	});
 
+$('#footertest').addClass('animated slideInLeft');
+
+
 });
