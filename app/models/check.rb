@@ -4,6 +4,7 @@ class Check < ActiveRecord::Base
 	belongs_to :restaurant
 	# user_id, :restaurant_id, :paid_at
 	validates :user_id, :restaurant_id, :presence => true
+	before_save :set_tip
 
 	scope :pending, -> { where(paid_at: nil) }
 	scope :closed, -> { where.not(paid_at: nil) }
@@ -14,6 +15,10 @@ class Check < ActiveRecord::Base
 	 # 		total += item.subtotal
 		# end
 		# return total
+	end
+
+	def set_tip
+		tip = diner.tip
 	end
 
 end

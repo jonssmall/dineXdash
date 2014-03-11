@@ -10,10 +10,12 @@ class ChecksController < ApplicationController
   end
 
   def pay
+    binding.pry
     if current_user.id != @check.diner.id
       redirect_to check_path(@check), alert: "You can't pay for a bill that isn't yours!"
     else 
       @check.paid_at = DateTime.now.utc
+      @check.tip = params[:check][:tip]
       @check.save
       
       @check.diner.checked_in = false
@@ -39,6 +41,7 @@ class ChecksController < ApplicationController
 
     @check = Check.new( :restaurant_id => params[:restaurant_id] )
     @check.diner = current_user
+    @check.tip = @check.diner.tip
 
 
     respond_to do |format|
@@ -76,7 +79,7 @@ class ChecksController < ApplicationController
     end
 
     def check_params
-      params.require(:check).permit(:user_id, :restaurant_id, :paid_at)
+      params.require(:check).permit(:user_id, :restaurant_id, :paid_at, :tip)
     end
 
     def one_pending_check

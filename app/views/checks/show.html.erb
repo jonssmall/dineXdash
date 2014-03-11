@@ -19,20 +19,9 @@
 </p>
 <h3>WILL AUTHORIZE: USER Perspective to PAY BILL</h3>
 
-
 <div id='check-item-list'>
   <%= render partial: 'checks/check_items' %>
 </div>
-
-
-<br>
-<% if @check.paid_at == nil %> <!-- make a better check than nil !-->
-<%= button_to 'Pay now', pay_check_path(@check), method: :post %>
-<% else %>
-<p>Check closed. Thanks for eating at <%= @check.restaurant.name %></p>
-<% end %>
-<br>
-<br>
 
 <% if current_user.id == @check.restaurant.owner.id %>
   <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
@@ -47,3 +36,27 @@
 <% end %>
 
 
+<script type="text/javascript">
+  // $('#tip').on('click', function(){
+  //   alert('Hey!');
+  // })
+    //setup before functions
+  var typingTimer;                //timer identifier
+  var doneTypingInterval = 2000;  //time in ms, 5 second for example
+  // var total = 
+  //on keyup, start the countdown
+  $('#tip').keyup(function(){
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(doneTyping, doneTypingInterval);
+  });
+
+  //on keydown, clear the countdown 
+  $('#tip').keydown(function(){
+      clearTimeout(typingTimer);
+  });
+
+  //user is "finished typing," do something
+  function doneTyping () {
+      $('#check-calc h2').text('Hello');
+  }
+</script>

@@ -3,7 +3,7 @@ DineXdash::Application.routes.draw do
   resources :checks, except: :new do
     resources :check_items, except: [:new, :index, :show]
     member do
-      post :pay, :action =>:pay
+      patch :pay, :action =>:pay
     end 
   end
 
