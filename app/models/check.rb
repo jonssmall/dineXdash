@@ -9,12 +9,20 @@ class Check < ActiveRecord::Base
 	scope :pending, -> { where(paid_at: nil) }
 	scope :closed, -> { where.not(paid_at: nil) }
 
-	def self_test
-		test_array = []
+	def
+		# test_array = []
+		# self.check_items.where.not(id: nil).map do |item|
+		# 	test_array << (item.price * item.quantity)
+		# end
+		# test_array.inject(:+)
+
+		subtotal = 0
 		self.check_items.where.not(id: nil).map do |item|
-			test_array << (item.price * item.quantity)
+			subtotal += item.price * item.quantity
 		end
-		test_array.inject(:+)
+		return subtotal
+
+
 	end
 
 	def subtotal
