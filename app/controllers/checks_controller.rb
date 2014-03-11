@@ -16,18 +16,9 @@ class ChecksController < ApplicationController
     else 
       @check.paid_at = DateTime.now.utc
       @check.tip = params[:check][:tip]
+      @check.total = @check.total
       @check.save
 
-      subtotal = 0
-      @check.check_items.each do |item|
-        subtotal += item.price * item.quantity
-      end
-
-      tip_amount = subtotal * (@check.tip/ 100.0)
-      tax_amount = subtotal * 0.14
-
-      @check.total = subtotal + tip_amount + tax_amount
-      @check.save
       
       @check.diner.checked_in = false
       @check.diner.save
