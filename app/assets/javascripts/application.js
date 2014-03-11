@@ -24,6 +24,12 @@ $(function(){
  // 	});
 
 $('#footertest').addClass('animated slideInLeft');
+// $('#content row').addClass('animated slideOutUp');
+$(".accordion dd").on("click", "a:eq(0)", function (event)
+      {
+        $(".accordion dd div.content:visible").slideToggle("normal");
+        $(this).parent().find(".content").slideToggle("normal");
+      });
 
 
 });
