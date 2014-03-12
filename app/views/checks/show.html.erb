@@ -28,15 +28,25 @@
 
 <%= form_for @check, url: pay_check_path do |f| %>
 <% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
-<p>Set tip or use default:<span><%= f.number_field 'tip', value: @check.diner.tip %></span></p>
+
+<% unless @check.paid_at != nil %>
+  <p>
+    Set tip or use default:
+    <span><%= f.number_field 'tip', value: @check.diner.tip %></span>
+  </p>
+<% end %>
+
 <h4 id='tip-amount' data-num="<% @check.tip_amount %>">Tip (at <%= @check.tip %>%): <%= number_to_currency(@check.tip_amount) %></h4>
 
 <div id='check-calculations'>
   <%= render partial: 'checks/check_calculations' %>
 </div>
 
+<% unless @check.paid_at != nil %>
   <%= f.submit 'Pay now' %>
   <% end %>
+<% end %>
+
 
 <% if current_user.id == @check.restaurant.owner.id %>
   <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
