@@ -5,6 +5,7 @@ class Check < ActiveRecord::Base
 	# user_id, :restaurant_id, :paid_at
 	validates :user_id, :restaurant_id, :presence => true
 	before_save :set_tip
+	validates :tip, numericality: { :greater_than_or_equal_to => 0 }
 
 	scope :pending, -> { where(paid_at: nil) }
 	scope :closed, -> { where.not(paid_at: nil) }

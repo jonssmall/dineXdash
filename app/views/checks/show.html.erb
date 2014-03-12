@@ -35,11 +35,15 @@
 <% unless @check.paid_at != nil %>
   <p>
     Set tip or use default:
-    <span><%= f.number_field 'tip', value: @check.diner.tip %></span>
+    <span><%= f.text_field 'tip', value: @check.diner.tip %></span>
   </p>
 <% end %>
 
-<h4 id='tip-amount' data-num="<%=@check.tip_amount %>">Tip (at <span id="new-tip"><%= @check.tip %></span>%): <span id="new-tip-calc"><%= number_to_currency(@check.tip_amount) %></span></h4>
+<h4 id='tip-amount' data-num="<%=@check.tip_amount %>">
+  Tip (at <span id="new-tip"><%= @check.tip %></span>%): <span id="new-tip-calc">
+  <%= number_to_currency(@check.tip_amount) %>
+</span>
+</h4>
 
 <div id='check-calculations'>
   <%= render partial: 'checks/check_calculations' %>
@@ -85,6 +89,7 @@
   //user is "finished typing," do something
   function doneTyping () {
       var newTip = $('#check_tip').val()
+      if (!isNaN(newTip)){
       $('#new-tip').text(newTip);
       $('#tip-amount').data('num', parseFloat($('#subtotal').data('num')) * (parseFloat(newTip) / 100) );
 
@@ -96,5 +101,9 @@
       var total = parseFloat($('#subtotal').data('num')) + parseFloat($('#tip-amount').data('num')) + parseFloat($('#tax-amount').data('num'));
 
       $('#check-total h2 span').text('$' + total.toFixed(2));
+    }
+    else{
+      alert("Tip has to be a number");
+    }
   };
 </script>

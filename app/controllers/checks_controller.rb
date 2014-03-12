@@ -24,7 +24,12 @@ class ChecksController < ApplicationController
       
       @check.diner.checked_in = false
       @check.diner.save
-      redirect_to check_path(@check), notice: "Payment confirmed."
+
+      if @check.save
+        redirect_to check_path(@check), notice: "Payment confirmed."
+      else 
+        redirect_to check_path(@check), notice: "There was an error in your tip form."
+      end
     end
 
   end

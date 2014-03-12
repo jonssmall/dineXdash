@@ -94,10 +94,21 @@
           </li>
         </ul>
       <% end %>
+      <% if current_user %>
+        <% current_user.restaurants.each do |r| %>
+          <% if r.checks.pending %>
+            <% @test_bool = true %>
+          <% end %>
+        <% end %>
+      <% end %>
+      
     </section>
   </nav>
 </div>
 
+<% if @test_bool %>
+  <h1> Hello! </h1>      
+<% end %>
 
   <% if current_user && current_user.checks.pending.any? %>
     <p>
