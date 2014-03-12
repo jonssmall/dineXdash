@@ -36,7 +36,7 @@
   </p>
 <% end %>
 
-<h4 id='tip-amount' data-num="<% @check.tip_amount %>">Tip (at <%= @check.tip %>%): <%= number_to_currency(@check.tip_amount) %></h4>
+<h4 id='tip-amount' data-num="<%=@check.tip_amount %>">Tip (at <span id="new-tip"><%= @check.tip %></span>%): <span id="new-tip-calc"><%= number_to_currency(@check.tip_amount) %></span></h4>
 
 <div id='check-calculations'>
   <%= render partial: 'checks/check_calculations' %>
@@ -67,20 +67,31 @@
     //setup before functions
   var typingTimer;                //timer identifier
   var doneTypingInterval = 2000;  //time in ms, 5 second for example
-  // var total = 
+  
   //on keyup, start the countdown
-  $('#tip').keyup(function(){
+  $('#check_tip').keyup(function(){
       clearTimeout(typingTimer);
       typingTimer = setTimeout(doneTyping, doneTypingInterval);
   });
 
   //on keydown, clear the countdown 
-  $('#tip').keydown(function(){
+  $('#check_tip').keydown(function(){
       clearTimeout(typingTimer);
   });
 
   //user is "finished typing," do something
   function doneTyping () {
-      $('#check-calc h2').text('Hello');
-  }
+      var newTip = $('#check_tip').val()
+      $('#new-tip').text(newTip);
+      $('#tip-amount').data('num', parseFloat($('#subtotal').data('num')) * (parseFloat(newTip) / 100) );
+
+      // tAlert = $('#tip-amount').data('num')
+      
+
+      $('#new-tip-calc').text($('#tip-amount').data('num'))
+
+      var total = parseFloat($('#subtotal').data('num')) + parseFloat($('#tip-amount').data('num')) + parseFloat($('#tax-amount').data('num'));
+
+      $('#check-total h2 span').text(total);
+  };
 </script>
