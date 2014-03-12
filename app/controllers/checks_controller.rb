@@ -4,6 +4,8 @@ class ChecksController < ApplicationController
   # before_action :ensure_single_check, only: [:new, :create]
   before_filter :ensure_current_diner_or_owner_or_admin, only: [:show]
   before_filter :admin_user, only: [:index]
+  before_filter :ensure_current_diner, only: [:pay]
+  before_filter :open_check, only: [:pay]
 
   def index
     @checks = Check.all
@@ -94,6 +96,18 @@ class ChecksController < ApplicationController
     def ensure_current_diner_or_owner_or_admin
       unless current_user.admin? || current_user.id == @check.restaurant.owner.id || current_user.id == @check.diner.id
         redirect_to root_url, alert: "You can't view another user's checks!"
+      end
+    end
+
+    def ensure_current_diner
+      unless current_user.id == @check.diner.id
+        redirect_to root_url, alert: "You can't pay another user's check!"
+      end
+    end
+
+    def open_check
+      unless @check.paid_at == nil
+        redirect_to @check, alert: "Generous, but you can't pay for a closed check again."
       end
     end
 

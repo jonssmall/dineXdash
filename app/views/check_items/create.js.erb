@@ -3,5 +3,6 @@
 <% else %>
   $("#check-item-errors").html("");
   $("#check-item-list").html("<%= escape_javascript(render(:partial => '/checks/check_items')) %>");
+  $("#check-calculations").html("<%= escape_javascript(render(:partial => '/checks/check_calculations')) %>");
   $("#new_check_item")[0].reset();
 <% end %>

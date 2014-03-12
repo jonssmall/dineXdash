@@ -1,3 +1,6 @@
+<% if @check.paid_at != nil %>
+  <h3>Check is closed. Thanks for eating at <%= @check.restaurant.name %></h3>
+<% end %>
 <p>
   <strong>Current Diner:</strong>
   <%= @check.diner.email %>
@@ -22,6 +25,18 @@
 <div id='check-item-list'>
   <%= render partial: 'checks/check_items' %>
 </div>
+
+<%= form_for @check, url: pay_check_path do |f| %>
+<% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
+<p>Set tip or use default:<span><%= f.number_field 'tip', value: @check.diner.tip %></span></p>
+<h4 id='tip-amount' data-num="<% @check.tip_amount %>">Tip (at <%= @check.tip %>%): <%= number_to_currency(@check.tip_amount) %></h4>
+
+<div id='check-calculations'>
+  <%= render partial: 'checks/check_calculations' %>
+</div>
+
+  <%= f.submit 'Pay now' %>
+  <% end %>
 
 <% if current_user.id == @check.restaurant.owner.id %>
   <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>

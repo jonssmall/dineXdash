@@ -1,0 +1,14 @@
+
+
+  <h4 id="subtotal" data-num="<%=@check.subtotal%>">Subtotal: <%= number_to_currency(@check.subtotal) %></h4>
+  
+
+  <% tax_amount = (@check.subtotal * 0.14).round(2) %>
+  <h4>HST (14%): <%= number_to_currency(@check.tax_amount) %></h4>
+
+  <div id='check-calc'>
+  <h2>Total: <%= number_to_currency(@check.total) %></h2>
+  
+  </div>
+
+

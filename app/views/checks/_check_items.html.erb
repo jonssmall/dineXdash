@@ -1,5 +1,4 @@
-<% if @check.paid_at == nil %> <!-- make a better test than nil !-->
- 
+
   <% @check.check_items.each do |item| %>
     <% if item.id.present? %>
      <p><%= item.item_name %> 
@@ -13,50 +12,6 @@
     <% end %>
   <% end %>
 
-  <h4 id="subtotal" data-num="<%=@check.subtotal%>">Subtotal: <%= number_to_currency(@check.subtotal) %></h4>
-  <%= form_for @check, url: pay_check_path do |f| %>
-  <% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
-  <h4 id='tip-amount' data-num="<% @check.tip_amount %>">Tip (at <%= @check.tip %>%): <%= number_to_currency(@check.tip_amount) %></h4>
-  <%= f.number_field 'tip', value: @check.diner.tip %>
-
-  <% tax_amount = (@check.subtotal * 0.14).round(2) %>
-  <h4>HST (14%): <%= number_to_currency(@check.tax_amount) %></h4>
-
-  <div id='check-calc'>
-  <h2>Total: <%= number_to_currency(@check.total) %></h2>
-  
-  </div>
-  <br>
-  <%= f.submit 'Pay now' %>
-  <% end %>
 
 
-<% else %>
-  <% @check.check_items.each do |item| %>
-    <% if item.id.present? %>
-     <p><%= item.item_name %> 
-        Quantity: <%= item.quantity %> 
-        Price per Unit: <%= number_to_currency(item.price) %>  
-        <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong> 
-        <% if @check.paid_at == nil && current_user.id == @check.restaurant.owner.id %>
-          <%= link_to "Delete", {:controller => :check_items, :action => 'destroy', check_id: item.check.id, :id => item.id }, :method => :delete, :confirm => 'Are you sure?' %>
-        <% end %>
-      </p>
-    <% end %>
-  <% end %>
-
-  <h4 id="subtotal" data-num="<%=@check.subtotal%>">Subtotal: <%= number_to_currency(@check.subtotal) %></h4>
-
-  <% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
-  <h4 id='tip-amount' data-num="<% @check.tip_amount %>">Tip (at <%= @check.tip %>%): <%= number_to_currency(@check.tip_amount) %></h4>
-
-  <% tax_amount = (@check.subtotal * 0.14).round(2) %>
-  <h4>HST (14%): <%= number_to_currency(@check.tax_amount) %></h4>
-
-  <div id='check-calc'>
-  <h2>Total: <%= number_to_currency(@check.total) %></h2>
-  
-  </div>
-
-<% end %>
 
