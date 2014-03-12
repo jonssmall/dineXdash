@@ -66,7 +66,7 @@
   // })
     //setup before functions
   var typingTimer;                //timer identifier
-  var doneTypingInterval = 2000;  //time in ms, 5 second for example
+  var doneTypingInterval = 1000;  //time in ms, 5 second for example
   
   //on keyup, start the countdown
   $('#check_tip').keyup(function(){
@@ -88,10 +88,10 @@
       // tAlert = $('#tip-amount').data('num')
       
 
-      $('#new-tip-calc').text($('#tip-amount').data('num'))
+      $('#new-tip-calc').text('$' + $('#tip-amount').data('num').toFixed(2));
 
       var total = parseFloat($('#subtotal').data('num')) + parseFloat($('#tip-amount').data('num')) + parseFloat($('#tax-amount').data('num'));
 
-      $('#check-total h2 span').text(total);
+      $('#check-total h2 span').text('$' + total.toFixed(2));
   };
 </script>
