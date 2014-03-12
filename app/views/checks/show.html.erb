@@ -1,8 +1,8 @@
 <% if @check.paid_at != nil %>
   <h3>Check is closed. Thanks for eating at <%= @check.restaurant.name %></h3>
+<% else %>
+  <%= button_to "Update Check", check_path(@check), method: :get %>
 <% end %>
-
-<%= button_to "Update Check", check_path(@check), method: :get %>
 
 <p>
   <strong>Current Diner:</strong>
@@ -23,47 +23,66 @@
   <strong>Paid at:</strong>
   <%= @check.paid_at %>
 </p>
+
 <h3>WILL AUTHORIZE: USER Perspective to PAY BILL</h3>
 
-<div id='check-item-list'>
+<div id="check-item-list">
   <%= render partial: 'checks/check_items' %>
 </div>
 
 <%= form_for @check, url: pay_check_path do |f| %>
-<% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
+  <% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
 
-<% unless @check.paid_at != nil %>
-  <p>
-    Set tip or use default:
-    <span><%= f.text_field 'tip', value: @check.diner.tip %></span>
-  </p>
-<% end %>
+  <% unless @check.paid_at != nil %>
+    <div class="poop">
+      <%= f.label :tip, "set tip poop" %>  
+      <%= f.text_field 'tip', class: "right inline", value: @check.diner.tip %>
+    </div>
+  <% end %>
 
-<h4 id='tip-amount' data-num="<%=@check.tip_amount %>">
-  Tip (at <span id="new-tip"><%= @check.tip %></span>%): <span id="new-tip-calc">
-  <%= number_to_currency(@check.tip_amount) %>
-</span>
-</h4>
 
-<div id='check-calculations'>
-  <%= render partial: 'checks/check_calculations' %>
-</div>
+  <form>
+  <div class="row">
+    <div class="small-6 small-centered columns" >
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="right-label" class="right">Label</label>
+        </div>
+        <div class="small-9 columns">
+          <input type="text" id="right-label" placeholder="Inline Text Input">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
-<% unless @check.paid_at != nil %>
-  <%= f.submit 'Pay now' %>
+
+
+  <h4 id='tip-amount' data-num="<%=@check.tip_amount %>">
+    Tip (at <span id="new-tip"><%= @check.tip %></span>%): <span id="new-tip-calc">
+    <%= number_to_currency(@check.tip_amount) %>
+  </span>
+  </h4>
+
+  <div id='check-calculations'>
+    <%= render partial: 'checks/check_calculations' %>
+  </div>
+
+  <% unless @check.paid_at != nil %>
+    <%= f.submit 'Pay now' %>
   <% end %>
 <% end %>
 
 
-<% if current_user.id == @check.restaurant.owner.id %>
+<% if current_user.id == @check.restaurant.owner.id  && @check.paid_at == nil %>
   <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
   <%= form_for [@check, @check_item], remote: true do |f| %>
-  <div id='check-item-errors'>
-    <%= render partial: 'checks/check_item_errors' %>
-  </div>
-  	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
-  	<%= f.number_field :quantity, default: nil %>
-  	<%= f.submit "Add Item" %>
+    <div id='check-item-errors'>
+      <%= render partial: 'checks/check_item_errors' %>
+    </div>
+    	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
+    	<%= f.number_field :quantity, default: nil%>
+    	<%= f.submit "Add Item" %>
   <% end %>
 <% end %>
 

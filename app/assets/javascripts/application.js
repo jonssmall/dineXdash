@@ -25,11 +25,15 @@ $(function(){
 
 // $('#footertest').addClass('animated slideInLeft');
 
+// WORKING SOLUTION BUT TAB DOES NOT CLOSE
 $(".accordion dd").on("click", "a:eq(0)", function (event)
       {
+      	var dd_parent= $(this).parent();
         $(".accordion dd div.content:visible").slideToggle("normal");
         $(this).parent().find(".content").slideToggle("normal");
       });
 
 
 });
+
+

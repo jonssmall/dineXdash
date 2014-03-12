@@ -5,6 +5,7 @@ class Check < ActiveRecord::Base
 	# user_id, :restaurant_id, :paid_at
 	validates :user_id, :restaurant_id, :presence => true
 	before_save :set_tip
+	validates :tip, presence: true
 	validates :tip, numericality: { :greater_than_or_equal_to => 0 }
 
 	scope :pending, -> { where(paid_at: nil) }
@@ -31,7 +32,9 @@ class Check < ActiveRecord::Base
       # @check.total = subtotal + tip_amount + tax_amount
 
 	def tip_amount
-		tip_amount = subtotal * tip/100.0
+		unless tip == nil
+			tip_amount = subtotal * tip/100.0
+		end
 	end
 
 	def tax_amount
@@ -39,7 +42,9 @@ class Check < ActiveRecord::Base
 	end
 
 	def total
-		total = subtotal + tip_amount + tax_amount
+		unless tip == nil
+			total = subtotal + tip_amount + tax_amount
+		end
 	end
 
 	def set_tip

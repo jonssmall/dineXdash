@@ -103,15 +103,16 @@
                 <a class="active" href="#">Open checks at your restaurants</a>
                 <ul class="dropdown">
                 <% current_user.restaurants.each do |r| %>
-                  <li class="has-dropdown">
-                    <a href="#" class=""><%= r.name %></a>
-                    <ul class="dropdown">
-                      <% r.checks.pending.each do |check| %>
-                        <li><a href="<%= check_path(check) %>"><%= check.diner.email %></a></li>
-                      <% end %>
-                    </ul>
-                  </li>
-                  <li class="divider"></li>
+                  <% if r.checks.pending.any? %>
+                    <li class="has-dropdown">
+                      <a href="#" class=""><%= r.name %></a>
+                      <ul class="dropdown">
+                        <% r.checks.pending.each do |check| %>
+                          <li><a href="<%= check_path(check) %>"><%= check.diner.email %></a></li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
                 <% end %>
                 </ul>
               </li>
