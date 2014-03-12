@@ -5,25 +5,27 @@
   <% @restaurants.each do |r| %>
     <dd>
       <a href="#panel<%= rcounter %>" ><%= r.name %></a>
-      <div id="panel<%= rcounter %>" class="content row">
-        <div class='small-6 columns'>
-          <p><%= r.description %></p>
-          <p><%= r.address %></p>
-          <p><%= r.owner.email %></p>
-          <div><%= link_to 'Show Full Profile', r, class: 'button' %></div>
-        </div>
-        <div class='small-6 columns'>
-          <strong>Menu Sample:</strong>
-          <% r.menu_items.each do |item| %>
-            <p><%= item.item_name %>: <%= item.item_desc %></p>
-          <% end %>
-          <% if current_user && !(current_user.checks.pending.any?) %>
-            <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => r.id ), method: :post, class: 'button' %>
-          <% end %>
-          <% if current_user && current_user.admin? %>
-            <p>Admin Actions: <%= link_to 'Edit', edit_restaurant_path(r) %> | 
-            <%= link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-          <% end %>
+      <div id="panel<%= rcounter %>" class="content">
+        <div class="row">  
+          <div class='small-6 columns'>
+            <p><%= r.description %></p>
+            <p><%= r.address %></p>
+            <p><%= r.owner.email %></p>
+            <div><%= link_to 'Show Full Profile', r, class: 'button' %></div>
+          </div>
+          <div class='small-6 columns'>
+            <strong>Menu Sample:</strong>
+            <% r.menu_items.each do |item| %>
+              <p><%= item.item_name %>: <%= item.item_desc %></p>
+            <% end %>
+            <% if current_user && !(current_user.checks.pending.any?) %>
+              <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => r.id ), method: :post, class: 'button' %>
+            <% end %>
+            <% if current_user && current_user.admin? %>
+              <p>Admin Actions: <%= link_to 'Edit', edit_restaurant_path(r) %> | 
+              <%= link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+            <% end %>
+          </div>
         </div>
       </div>
     </dd>
