@@ -1,6 +1,9 @@
 <% if @check.paid_at != nil %>
   <h3>Check is closed. Thanks for eating at <%= @check.restaurant.name %></h3>
 <% end %>
+
+<%= button_to "Update Check", check_path(@check), method: :get %>
+
 <p>
   <strong>Current Diner:</strong>
   <%= @check.diner.email %>
