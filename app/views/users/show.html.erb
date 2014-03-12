@@ -3,10 +3,12 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <strong></strong>
-  
-</p>
+<% if current_user.restaurants.any? %>
+	<strong>Restaurants I own:</strong>
+	<% current_user.restaurants.each do |r| %>
+		<p><%= link_to "#{r.name}", restaurant_path(r) %></p>
+	<% end %>
+<% end %>
 
 	<% if current_user.checks.any? %>
 		<% if current_user.checks.pending.any? %>
