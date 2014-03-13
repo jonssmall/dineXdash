@@ -1,10 +1,9 @@
 
   <% @check.check_items.each do |item| %>
     <% if item.id.present? %>
-     <p><%= item.item_name %> 
-        Quantity: <%= item.quantity %> 
-        Price per Unit: <%= number_to_currency(item.price) %>  
-        <strong>Total for this item: <%= number_to_currency(item.quantity * item.price) %></strong> 
+     <p><%= item.quantity %> <%= item.item_name %> 
+        @ <%= number_to_currency(item.price) %> each:
+        <%= number_to_currency(item.quantity * item.price) %>
         <% if @check.paid_at == nil && current_user.id == @check.restaurant.owner.id %>
           <%= link_to "Delete", {:controller => :check_items, :action => 'destroy', check_id: item.check.id, :id => item.id }, :method => :delete, :confirm => 'Are you sure?' %>
         <% end %>

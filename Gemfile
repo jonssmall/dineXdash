@@ -41,6 +41,7 @@ end
 
 group :development do
 	gem 'pry'
+	gem 'quiet_assets'
 end
 
 gem 'compass-rails'
