@@ -16,5 +16,17 @@
  */
 
  
-
+#footertest{
+	position: relative;
+	text-align: center;
+}
  
+#testimg {
+	max-width: 90%;
+	max-height: 50%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	display: inline-block
+}
