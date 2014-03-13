@@ -34,29 +34,21 @@
   <% tip_amount = (@check.subtotal * (@check.tip / 100.0)).round(2) %>
 
   <% unless @check.paid_at != nil %>
-    <div class="poop">
-      <%= f.label :tip, "Set Tip" %>  
-      <%= f.text_field 'tip', class: "right inline", value: @check.diner.tip %>
+    <div class="row">
+      <div class="small-4 columns">
+         Hello!
+      </div>
+    <div class="small-1 columns">
+      <%= f.label :tip, "Set Tip" %>
     </div>
-  <% end %>
-
-
-  <form>
-  <div class="row">
-    <div class="small-6 small-centered columns" >
-      <div class="row">
-        <div class="small-3 columns">
-          <label for="right-label" class="right">Label</label>
-        </div>
-        <div class="small-9 columns">
-          <input type="text" id="right-label" placeholder="Inline Text Input">
-        </div>
+      <div class="small-2 columns">
+        <%= f.text_field 'tip', value: @check.diner.tip %>
+      </div>
+      <div class="small-5 columns">
+         Hello!
       </div>
     </div>
-  </div>
-</form>
-
-
+  <% end %>
 
   <h4 id='tip-amount' data-num="<%=@check.tip_amount %>">
     Tip (at <span id="new-tip"><%= @check.tip %></span>%): <span id="new-tip-calc">
