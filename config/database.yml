@@ -20,5 +20,5 @@ test:
 
 production:
   adapter: postgresql
-  database: photogur
+  database: dinexdash
   host: localhost
