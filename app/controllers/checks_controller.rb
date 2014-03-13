@@ -94,7 +94,7 @@ class ChecksController < ApplicationController
     def one_pending_check
       if current_user.checks.pending.any?
         flash[:alert] = "You can't be in two places at once... yet."
-        redirect_to(:back)
+        redirect_to(restaurants_path)
       end
     end
 

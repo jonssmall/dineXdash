@@ -1,24 +1,26 @@
-<p>
-  <strong>Name:</strong>
-  <%= @restaurant.name %>
-</p>
+<div class="row">
+  <div class="small-6 columns">
+    <h3><%= @restaurant.name %></h3>
 
-<p>
-  <strong>Address:</strong>
-  <%= @restaurant.address %>
-</p>
+    <p>
+      <%= @restaurant.address %>
+    </p>
+    <strong>Description:</strong>
+    <p><%= @restaurant.description %></p>
+  </div>
+  <div class="small-6 columns">
+    <h3> Menu</h3>
+    <div id='menu-list'>
+      <%= render partial: "menu_items" %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @restaurant.description %>
-</p>
-
-<h3>Checkin:</h3>
 <% if logged_in? %>
   <% if !(current_user.checked_in) %>
-  	<p>
-  	  <%= link_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), method: :post %>
-  	</p>
+    <p>
+      <%= button_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), class: "button", method: :post %>
+    </p>
   <% else %>
     <p>You're already checked into a restaurant!</p>
   <% end %>
@@ -26,70 +28,51 @@
   <p>Please login to check into this restaurant.</p>
 <% end %>
 
-<br>
-<br>
-<p> Menu items for this restaurant: </p>
-<div id='menu-list'>
-  <%= render partial: "menu_items" %>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
  <!--This is the div closing for large-8 columns-->
 
 <% if current_user && current_user.id == @restaurant.owner.id %>
-<h2>AUTHORIZED VIEW: OWNER-ONLY </h2>
-<h3>Welcome, <%= @restaurant.owner.email%>!</h3>
-<%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Add Menu item', new_restaurant_menu_item_path(@restaurant) %>
-<br>
-<h4>List of Diners with open checks at this restaurant:</h4>
-<% @restaurant.checks.pending.each do |check| %>
-	<%= link_to "#{check.diner.email}", check_path(check) %>
+  <h2>Owner Section</h2>
+  <div class="row">
+    <div class="small-6 columns">
+      <h3>Add Menu Items</h3>
+      <%= form_for([@restaurant, @menu_item], remote: true) do |f| %>
+        <div id='menu-item-errors'>
+          <%= render partial: "/restaurants/menu_item_errors" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :item_name , :style => "color: #fff;" %><br>
+          <%= f.text_field :item_name %>
+        </div>
+        <div class="field">
+          <%= f.label :item_desc, :style => "color: #fff;" %><br>
+          <%= f.text_area :item_desc %>
+        </div>
+        <div class="field">
+          <%= f.label :price, :style => "color: #fff;" %><br>
+          <%= f.text_field :price %>
+        </div>
+        <div class="actions">
+          <%= f.submit "Create Menu Item", id: "newitem_button", class: "button", disable_with: "Submitting.."  %>
+        </div>
+      <% end %>
+    </div>
+    <div class="small-6 columns">
+      <br>
+      <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), class: "button" %>
+      <h4>Current Diners:</h4>
+      <% @restaurant.checks.pending.each do |check| %>
+      	<p><%= link_to "#{check.diner.email}", check_path(check) %></p>
+      <% end %>
+      <a href="#" data-dropdown="drop1" class="button dropdown">Old Receipts</a><br>
+      <ul id="drop1" data-dropdown-content class="f-dropdown">
+        <% @restaurant.checks.closed.each do |check| %>
+          <li><a href="#"></a><%= link_to "#{check.diner.email} at #{check.paid_at}", check_path(check) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
-
-<h5>Old Receipts</h5>
-<% @restaurant.checks.closed.each do |check| %>
-  <p><%= link_to "#{check.diner.email} at #{check.paid_at}", check_path(check) %></p>
-<% end %>
-
-<h3>Add menu items to your restaurant.</h3>
-  <%= form_for([@restaurant, @menu_item], remote: true) do |f| %>
-    <div id='menu-item-errors'>
-      <%= render partial: "/restaurants/menu_item_errors" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :item_name , :style => "color: #fff;" %><br>
-      <%= f.text_field :item_name %>
-    </div>
-    <div class="field">
-      <%= f.label :item_desc, :style => "color: #fff;" %><br>
-      <%= f.text_area :item_desc %>
-    </div>
-    <div class="field">
-      <%= f.label :price, :style => "color: #fff;" %><br>
-      <%= f.text_field :price %>
-    </div>
-    <div class="actions">
-      <%= f.submit "Create Menu Item", id: "newitem_button", class: "button", disable_with: "Submitting.."  %>
-    </div>
-  <% end %>
-
-<% end %>
-
-<!-- This is div for large-4 columns-->
-</div>
-
-<br>
-<br>
-<br>
 
 <!-- Need to get working -->
 <script type="text/javascript">
