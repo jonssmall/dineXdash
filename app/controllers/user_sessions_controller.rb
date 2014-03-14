@@ -7,7 +7,9 @@ class UserSessionsController < ApplicationController
   def create
     respond_to do |format|
     	if @user = login(params[:email], params[:password])
-        format.html {redirect_back_or_to(:root, notice: 'Login successful')}
+        format.html {
+          redirect_back_or_to(:root, notice: 'Login successful')
+        }
         # format.js {}
       else
         # flash.now[:alert] = "Login failed"

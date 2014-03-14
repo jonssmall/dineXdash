@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  # before_filter :log_referer
   before_filter :require_login
+
 
 	private
 	def not_authenticated
@@ -22,6 +24,11 @@ class ApplicationController < ActionController::Base
       redirect_to(:back, alert: 'You must be an admin to do that!')
     end
   end
+
+  # def log_referer
+  #   Rails.logger.info "http referer is" + request.referer
+  # end
+
   
 end
 

@@ -16,17 +16,11 @@
   </div>
 </div>
 
-<% if logged_in? %>
-  <% if !(current_user.checked_in) %>
-    <p>
-      <%= button_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), class: "button", method: :post %>
-    </p>
-  <% else %>
-    <p>You're already checked into a restaurant!</p>
-  <% end %>
-<% else %>
-  <p>Please login to check into this restaurant.</p>
-<% end %>
+
+
+<%= button_to 'Check in to this restaurant', checks_path( :restaurant_id => @restaurant.id ), class: "button", method: :post %>
+
+
 
  <!--This is the div closing for large-8 columns-->
 

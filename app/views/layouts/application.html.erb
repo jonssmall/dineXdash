@@ -135,17 +135,15 @@ zoom: 1;
             </ul>
           <% end %>
       <% end %>
+        <% if current_user && current_user.checks.pending.any? %>
+          <div class="center">
+            <strong>Currently checked in to:</strong>
+            <%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>
+          </div>
+        <% end %>
     </section>
   </nav>
 </div>
-
-  <% if current_user && current_user.checks.pending.any? %>
-    <p>
-      <br>
-      <strong>Currently checked in to:</strong>
-      <%= link_to "#{current_user.checks.pending.last.restaurant.name}", check_path(current_user.checks.pending.last.id) %>
-    </p>
-  <% end %>
 
 </div> <!-- THIS IS NEW STUFF FOR THE FOOTER-->
  <div id="bodytest"><!-- THIS IS NEW STUFF FOR THE FOOTER-->
@@ -159,7 +157,7 @@ zoom: 1;
   <p id="alert"><%= flash[:alert] %></p>
 </div>
 <div class="row">
-  <div class="twelve scolumns text-center"><br />
+  <div class="twelve columns text-center"><br />
     <%= yield %>
   </div>
 </div>
@@ -179,7 +177,7 @@ zoom: 1;
 
       <div id='footertest'>
         <div id='social-buttons'>
-          <a href="https://www.instagram.com"><img id="instagram" src="/instagram-48.png" alt="instagram" /></a>
+          <a href="http://instagram.com/"><img id="instagram" src="/instagram-48.png" alt="instagram" /></a>
           <a href="https://github.com/atabas/dineXdash"><img id='git-button' src="/github-6-48.png" alt="octocat" /></a>
           <a href="https://www.twitter.com"><img id="testimg" src="/twitter-48.png" alt="twitter bird" /></a>
         </div>

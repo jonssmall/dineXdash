@@ -1,30 +1,9 @@
+<h2><%= @check.diner.email %>'s meal at <%= @check.restaurant.name %></h2>
 <% if @check.paid_at != nil %>
-  <h3>Check is closed. Thanks for eating at <%= @check.restaurant.name %></h3>
-<% else %>
-  <%= button_to "Update Check", check_path(@check), method: :get %>
+  <h3>Check is closed.(Paid at <%= @check.paid_at %>)</h3>
+<% elsif @check.diner.id == current_user.id %>
+  <%= button_to "Update Check", check_path(@check),class: "button",  method: :get %>
 <% end %>
-
-<p>
-  <strong>Current Diner:</strong>
-  <%= @check.diner.email %>
-</p>
-
-<p>
-  <strong>Restaurant Owner:</strong>
-  <%= @check.restaurant.owner.email %>
-</p>
-
-<p>
-  <strong>Restaurant:</strong>
-  <%= @check.restaurant.name %>
-</p>
-
-<p>
-  <strong>Paid at:</strong>
-  <%= @check.paid_at %>
-</p>
-
-<h3>WILL AUTHORIZE: USER Perspective to PAY BILL</h3>
 
 <div id="check-item-list">
   <%= render partial: 'checks/check_items' %>
@@ -36,16 +15,14 @@
   <% unless @check.paid_at != nil %>
     <div class="row">
       <div class="small-4 columns">
-         Hello!
       </div>
-    <div class="small-1 columns">
+    <div class="small-1 columns small-centered">
       <%= f.label :tip, "Set Tip" %>
     </div>
-      <div class="small-2 columns">
+      <div class="small-2 columns small-centered">
         <%= f.text_field 'tip', value: @check.diner.tip %>
       </div>
       <div class="small-5 columns">
-         Hello!
       </div>
     </div>
   <% end %>
@@ -61,21 +38,29 @@
   </div>
 
   <% unless @check.paid_at != nil %>
-    <%= f.submit 'Pay now' %>
+    <%= f.submit 'Pay now', class: "button" %>
   <% end %>
 <% end %>
 
 
 <% if current_user.id == @check.restaurant.owner.id  && @check.paid_at == nil %>
-  <h3>WILL AUTHORIZE: POS Perspective to Add Items to Check</h3>
-  <%= form_for [@check, @check_item], remote: true do |f| %>
-    <div id='check-item-errors'>
-      <%= render partial: 'checks/check_item_errors' %>
+  <div class='row'>
+    <div class="small-4 columns">
     </div>
-    	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
-    	<%= f.number_field :quantity, default: nil%>
-    	<%= f.submit "Add Item" %>
-  <% end %>
+    <div class="small-4 columns small-centered">
+    <h3>Add Items to Check</h3>
+    <%= form_for [@check, @check_item], remote: true do |f| %>
+      <div id='check-item-errors'>
+        <%= render partial: 'checks/check_item_errors' %>
+      </div>
+      	<%= collection_select :menu_item, :id, @check.restaurant.menu_items.all, :id, :item_name, prompt: false %>
+      	<%= f.number_field :quantity, default: nil%>
+      	<%= f.submit "Add Item", class: 'button' %>
+    <% end %>
+    </div>
+    <div class="small-4 columns">
+    </div>
+  </div>
 <% end %>
 
 <script type="text/javascript">

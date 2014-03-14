@@ -13,38 +13,41 @@
     </div>
   <% end %>
 
+  <div class="row">
+    <div class="small-4 columns">
+    </div>
+    <div class="small-4 columns small-centered">
+      <div class="field">
+        
+        <%= f.label :email, class:"left inline" %><br>
 
-<div class="row">
-  <div class="large-8 columns">
-  <div class="field">
-    
-    <%= f.label :email, class:"right inline" %><br>
+        <%= f.text_field :email %>
+      </div>
+      <div class="field">
+        
+        <%= f.label :password, class:"left inline" %><br />
 
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    
-    <%= f.label :password, class:"right inline" %><br />
+        <%= f.password_field :password %>
+      </div>
+      <div class="field">
+        
+        <%= f.label :password_confirmation , class:"left inline"%><br />
+     
+        <%= f.password_field :password_confirmation %>
+      </div>
+      <div class="field">
+       
+        <%= f.label :tip_percentage, class:"left inline" %><br>
+     
+        <%= f.number_field :tip%>
+      </div>
 
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    
-    <%= f.label :password_confirmation , class:"right inline"%><br />
- 
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-   
-    <%= f.label :tip_percentage, class:"right inline" %><br>
- 
-    <%= f.number_field :tip%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+      <div class="actions">
+        <%= f.submit class: 'button' %>
+      </div>
+    </div>
+    <div class="small-4 columns">
+    </div>
   </div>
 
-</div>
-</div>
 <% end %>
