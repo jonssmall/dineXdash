@@ -13,10 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20140311190224) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "check_items", force: true do |t|
     t.string   "item_name"
     t.text     "item_desc"
-    t.decimal  "price",      precision: 2, scale: 10
+    t.decimal  "price",      precision: 9, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "check_id"
@@ -30,14 +33,14 @@ ActiveRecord::Schema.define(version: 20140311190224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tip"
-    t.decimal  "total",         precision: 2, scale: 10
+    t.decimal  "total",         precision: 9, scale: 2
   end
 
   create_table "menu_items", force: true do |t|
     t.integer  "restaurant_id"
     t.string   "item_name"
     t.text     "item_desc"
-    t.decimal  "price",         precision: 2, scale: 10
+    t.decimal  "price",         precision: 9, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,6 +65,6 @@ ActiveRecord::Schema.define(version: 20140311190224) do
     t.boolean  "admin",            default: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
